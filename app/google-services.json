@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "998562227045",
+    "project_id": "skarti vpn premium",
+    "storage_bucket": "profile.saputratech.web.id"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998562227045:android:671f9c5bb965157ad6b78c",
+        "android_client_info": {
+          "package_name": "com.skarti.premium.v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998562227045-2ffnujke08f8djt7q7b0lvhi73gnrrkq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAPyW_5M9oMU8zKFXmbv6ssLyWbyYYDwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998562227045-2ffnujke08f8djt7q7b0lvhi73gnrrkq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

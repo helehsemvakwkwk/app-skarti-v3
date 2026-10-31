@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/payload_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Type Indicator Bar (Left side colored bar) -->
+        <View
+            android:id="@+id/type_indicator_bar"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:background="@color/sktgruy" />
+
+        <!-- Selection Border (Visible when selected) -->
+        <View
+            android:id="@+id/selection_border_payload"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/selection_border_gradient"
+            android:visibility="gone"
+            android:elevation="2dp" />
+
+        <!-- Selection Glow Effect -->
+        <View
+            android:id="@+id/selection_glow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/selection_glow_effect"
+            android:visibility="gone"
+            android:alpha="0.1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_toEndOf="@id/type_indicator_bar"
+            android:layout_marginStart="8dp">
+
+            <!-- Header Row: Type Icon + Name + Status Badge -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Type Icon -->
+                <ImageView
+                    android:id="@+id/type_icon"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@android:drawable/ic_menu_share"
+                    android:tint="@color/sktgruy"
+                    android:padding="4dp"
+                    android:background="@drawable/circle_background_gray"
+                    android:layout_marginEnd="12dp" />
+
+                <!-- Payload Name and Type -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <!-- Payload Name with Favorite Icon -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/payload_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SNI Bug"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black_light"
+                            android:maxLines="1"
+                            android:ellipsize="end" />
+
+                        <!-- Favorite Icon -->
+                        <ImageView
+                            android:id="@+id/favorite_icon"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@android:drawable/btn_star_big_on"
+                            android:tint="@color/yellow"
+                            android:layout_marginStart="6dp"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <!-- Payload Type -->
+                    <TextView
+                        android:id="@+id/payload_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SNI"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/sktgruy"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+                <!-- Status Badge -->
+                <TextView
+                    android:id="@+id/status_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Active"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:background="@drawable/badge_active"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:layout_marginStart="8dp" />
+
+                <!-- Check Mark (Visible when selected) -->
+                <ImageView
+                    android:id="@+id/check_mark_payload"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_check_circle"
+                    android:tint="@color/sktgruy"
+                    android:layout_marginStart="8dp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <!-- Payload Description -->
+            <TextView
+                android:id="@+id/payload_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="GET / HTTP/1.1[crlf]Host: [host][crlf]Connection: Upgrade[crlf]Upgrade: websocket[crlf][crlf]"
+                android:textSize="13sp"
+                android:textColor="@color/gray_light"
+                android:layout_marginTop="8dp"
+                android:maxLines="2"
+                android:ellipsize="end" />
+
+            <!-- Info hint -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Long press to view full payload"
+                android:textSize="10sp"
+                android:textColor="@color/gray_light"
+                android:textStyle="italic"
+                android:layout_marginTop="6dp"
+                android:alpha="0.7" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

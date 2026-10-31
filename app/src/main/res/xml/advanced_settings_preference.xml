@@ -1,0 +1,72 @@
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+		<androidx.preference.CheckBoxPreference
+	        android:icon="@drawable/ic_forward"
+	        android:layout="@layout/card_top_widget"
+			android:key="modeDebug"
+			android:summary="Unavailable"
+			android:title="Debug mode"
+            android:enabled="false"/>
+		
+		<androidx.preference.ListPreference
+		    android:icon="@drawable/ic_advance_settings"
+	        android:layout="@layout/card_bot"
+        	android:key="numberMaxThreadSocks"
+            android:title="Maximum Number of Threads"
+			android:summary="25th"
+			android:defaultValue="25th"
+        	android:entries="@array/pref_maxThreads_option_labels"
+        	android:entryValues="@array/pref_maxThreads_option_values"
+		/>
+		
+		<androidx.preference.CheckBoxPreference
+		    android:icon="@drawable/skarti_delete"
+	        android:layout="@layout/card_mid_widget"
+			android:key="tetherSubnet"
+			android:summary="@string/summary_tethering_subnet"
+			android:title="@string/title_tethering_subnet"
+		/>
+		
+		<androidx.preference.CheckBoxPreference
+		    android:icon="@drawable/skarti_delete"
+	        android:layout="@layout/card_mid_widget"
+			android:key="disableDelaySSH"
+			android:title="@string/title_disable_delay_ssh"
+			android:summary="@string/summary_disable_delay_ssh"
+		/>
+	
+	
+	
+	
+		<androidx.preference.CheckBoxPreference
+		    android:icon="@drawable/skarti_delete"
+	        android:layout="@layout/card_mid_widget"
+			android:key="filterApps"
+			android:title="Filter Apps"
+		/>
+	
+		<androidx.preference.CheckBoxPreference
+		    android:icon="@drawable/skarti_delete"
+	        android:layout="@layout/card_mid_widget"
+			android:key="filterBypassMode"
+			android:summary="Filter Bypass Mode"
+			android:title="App"
+		/>
+	
+		<androidx.preference.EditTextPreference
+		    android:icon="@drawable/ic_action_dns"
+	        android:layout="@layout/card_bot"
+            android:key="filterAppsList"
+            android:title="Apps List"
+            android:dialogMessage=""
+			android:singleLine="true"
+		/>
+		
+
+	
+	
+</androidx.preference.PreferenceScreen>

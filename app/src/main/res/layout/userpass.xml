@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/skt_gradient"
+    tools:context=".PhreakersMainActivity">
+
+    <!-- Kontainer Utama -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Judul -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:gravity="center"
+            android:text="PLEASE LOGIN"
+            android:textSize="20sp"
+            android:textColor="#FF555555"
+            android:textStyle="bold" />
+
+        <!-- Input Username -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/skt_gradient"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/skt_user"
+                android:layout_marginEnd="8dp" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/username"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:hint="@string/auth_username"
+                android:textColor="#4fbe16"
+                android:inputType="text"
+                android:backgroundTint="@android:color/darker_gray" />
+        </LinearLayout>
+
+        <!-- Input Password -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:background="@drawable/skt_gradient"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/skt_pass"
+                android:layout_marginEnd="8dp" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:hint="@string/password"
+                android:textColor="#d51212"
+                android:inputType="textPassword"
+                android:backgroundTint="@android:color/darker_gray" />
+
+            <ImageButton
+                android:id="@+id/show_password"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+				android:visibility="gone"
+                android:src="@drawable/icon"
+                android:contentDescription="@string/show_password"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <!-- Checkbox Save Password -->
+        <CheckBox
+            android:id="@+id/save_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+           
+            android:text="@string/save_password"
+            android:textColor="#36474F" />
+
+    </LinearLayout>
+
+</LinearLayout>

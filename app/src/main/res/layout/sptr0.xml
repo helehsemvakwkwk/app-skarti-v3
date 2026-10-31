@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/headerLayout"
+		android:layout_width="match_parent"
+		android:layout_marginLeft="0dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="8dp"
+		android:layout_height="wrap_content"
+		app:cardCornerRadius="5.0dp">
+                     
+                     
+
+	                             <Button
+                 android:layout_height="55dp"
+                 android:layout_width="match_parent"
+                 android:gravity="center"
+                 android:background="@drawable/skt5_gradient"
+                 android:textSize="17sp"
+                 android:layout_marginLeft="7dp"
+                 android:textColor="@color/white"
+                 android:layout_marginRight="7dp"
+                 android:layout_marginTop="5sp"
+                 android:id="@+id/nethiestart"
+                 android:text="START"
+                 android:textStyle="bold" />
+                    
+                     
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+
+
+</LinearLayout>
+

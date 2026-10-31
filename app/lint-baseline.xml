@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 7.2.2" type="baseline" client="gradle" dependencies="false" name="AGP (7.2.2)" variant="fatal" version="7.2.2">
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;summary_dns_primary&quot; is translated here but not found in default locale"
+        errorLine1=" &lt;string name=&quot;summary_dns_primary&quot;>Default (1.1.1.1)&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="42"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;dialog_message_dns_primary&quot; is translated here but not found in default locale"
+        errorLine1=" &lt;string name=&quot;dialog_message_dns_primary&quot;>Escriba la IP de DNS&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="43"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;title_number_max_threads&quot; is translated here but not found in default locale"
+        errorLine1=" &lt;string name=&quot;title_number_max_threads&quot;>Número máximo de Threads&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="52"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;summary_number_max_threads&quot; is translated here but not found in default locale"
+        errorLine1=" &lt;string name=&quot;summary_number_max_threads&quot;>Cuanto mayor sea el número de Threads mayor será el consumo de energia y la velocidad de conexión en su dispositivo.&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="53"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;title_filter_apps&quot; is translated here but not found in default locale"
+        errorLine1=" &lt;string name=&quot;title_filter_apps&quot;>Filtrar apps&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="55"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;summary_bypass_modo&quot; is translated here but not found in default locale"
+        errorLine1=" &lt;string name=&quot;summary_bypass_modo&quot;>Si activo, o tráfico de las aplicaticiones selecionadas sera enviada directamente.&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="57"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;title_apps_list&quot; is translated here but not found in default locale"
+        errorLine1=" &lt;string name=&quot;title_apps_list&quot;>Lista de Apps&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="58"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ExtraTranslation"
+        message="&quot;summary_apps_list&quot; is translated here but not found in default locale"
+        errorLine1=" &lt;string name=&quot;summary_apps_list&quot;>Escriba un nombre de paquete por línea. Vea en Configuraciones -> Apps para el nombre de paquete de apps.&lt;/string>"
+        errorLine2="         ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-es/strings.xml"
+            line="59"
+            column="10"/>
+    </issue>
+
+</issues>

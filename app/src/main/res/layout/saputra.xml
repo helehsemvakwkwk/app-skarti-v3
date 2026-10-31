@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/headerLayout"
+		android:layout_width="match_parent"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:layout_marginTop="10dp"
+		android:layout_height="wrap_content"
+		app:cardCornerRadius="5.0dp">
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="7dp"
+				android:background="@drawable/skt4_gradient">
+
+				<ImageView
+					android:src="@drawable/et"
+					android:layout_width="30dp"
+					android:layout_height="26dp"/>
+
+				<com.google.android.material.textview.MaterialTextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Join Telegram Group"
+					android:textColor="#98989a"
+					android:textSize="15sp"
+					android:layout_gravity="center_vertical"
+					android:layout_marginLeft="11dp"/>
+
+			</LinearLayout>
+
+	<ImageView
+					android:layout_width="match_parent"
+					android:onClick="joinwa"
+					android:layout_marginTop="-10dp"
+					android:layout_height="26dp"/>
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
+

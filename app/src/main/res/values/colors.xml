@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gray_light">#DEDEDE</color>
+    
+    <color name="settingsBG">#00ffffff</color>
+    <color name="blue">#00ffffff</color>
+    
+    <color name="blue_light">#9cb3b4</color>
+    <color name="gray">#ffecb3</color>
+    <color name="black_light">#333333</color>
+    <color name="white">#ffffff</color>
+    <color name="red">#FD1C0D</color>
+    <color name="yellow">#EEFD00</color>
+    <color name="green">#04D000</color>
+    
+    <color name="sktcyan">#9cb3b4</color>
+    <color name="sktgreen">#9cb3b4</color>
+    <color name="sktgruy">#9cb3b4</color>
+    
+    <color name="colorPrimary2">#16171e</color>
+    <color name="button_pressed">@color/colorPrimaryDark</color>
+    <color name="button_normal">@color/colorPrimary</color>
+  
+    <color name="colorPrimary">@color/sktgruy</color>
+    <color name="colorPrimaryDark">@color/blue</color>
+    <color name="colorSecondary">@color/blue</color>
+    <color name="colorAccent">@color/gray</color>
+    <color name="textColorPrimary">#1d88e5</color>
+    <color name="textColorSecondary">#000000</color>
+    <color name="colorTextEnabled">#1d88e5</color>
+    <color name="colorTextDisabled">#5B5B5B</color>
+    <color name="colorText">#1d88e5</color>
+    <color name="colorPrimaryBackground">@android:color/transparent</color>
+    <color name="colorSecondaryBackground">@android:color/transparent</color>
+    <color name="colorDivider">#1d88e5</color>
+    <color name="transparent">#00ffffff</color>
+    
+    
+</resources>

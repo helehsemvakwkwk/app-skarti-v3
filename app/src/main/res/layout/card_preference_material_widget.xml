@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:gravity="center_vertical" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:baselineAligned="false" android:minHeight="?android:attr/listPreferredItemHeightSmall">
+    <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="match_parent" android:minWidth="65dp">
+        <LinearLayout android:background="@drawable/card_bg_circle" android:layout_width="45dp" android:layout_height="45dp" android:layout_marginStart="10dp">
+            <androidx.preference.internal.PreferenceImageView android:gravity="center" android:id="@android:id/icon" android:layout_width="25dp" android:layout_height="25dp" android:layout_marginTop="10dp" android:tint="@android:color/white" android:layout_marginStart="10dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout android:paddingTop="16dp" android:paddingBottom="16dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="20dp" android:layout_marginEnd="16dp">
+        <TextView android:textSize="17sp" android:textColor="?android:attr/textColorPrimary" android:ellipsize="marquee" android:id="@android:id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="false"/>
+        <TextView android:textSize="14sp" android:textColor="?android:attr/textColorSecondary" android:ellipsize="marquee" android:id="@android:id/summary" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="false" android:layout_below="@android:id/title" android:layout_alignStart="@android:id/title"/>
+    </RelativeLayout>
+    <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="match_parent" android:minWidth="65dp">
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@android:id/widget_frame" android:layout_width="wrap_content" android:layout_height="match_parent" android:paddingEnd="10dp"/>
+    </LinearLayout>
+</LinearLayout>

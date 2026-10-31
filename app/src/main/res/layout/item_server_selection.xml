@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/server_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Selection Border (Visible when selected) -->
+        <View
+            android:id="@+id/selection_border"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/selection_border_gradient"
+            android:visibility="gone" />
+
+        <!-- Server Icon with Flag -->
+        <ImageView
+            android:id="@+id/server_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/skt_server"
+            android:padding="8dp"
+            android:background="@drawable/circle_background_gray"
+            android:layout_marginStart="8dp" />
+
+        <!-- Online/Offline Status Indicator -->
+        <ImageView
+            android:id="@+id/status_indicator"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignEnd="@id/server_icon"
+            android:layout_alignBottom="@id/server_icon"
+            android:src="@drawable/ic_circle"
+            android:tint="@color/green"
+            android:elevation="2dp" />
+
+        <!-- Server Information Container -->
+        <LinearLayout
+            android:id="@+id/server_info_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/server_icon"
+            android:layout_toStartOf="@id/server_meta_container"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+            <!-- Server Name with Premium Badge -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/server_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Singapore - SG1"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black_light"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <!-- Premium Badge -->
+                <ImageView
+                    android:id="@+id/premium_badge"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_premium_badge"
+                    android:layout_marginStart="8dp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <!-- Server Location -->
+            <TextView
+                android:id="@+id/server_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Singapore"
+                android:textSize="13sp"
+                android:textColor="@color/gray_light"
+                android:layout_marginTop="2dp"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <!-- Server Status -->
+            <TextView
+                android:id="@+id/server_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Online"
+                android:textSize="11sp"
+                android:textColor="@color/green"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp" />
+            
+            <!-- Server Load Indicator -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="6dp">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Load: "
+                    android:textSize="10sp"
+                    android:textColor="@color/gray_light" />
+                
+                <ProgressBar
+                    android:id="@+id/server_load_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="6dp"
+                    android:progress="45"
+                    android:max="100"
+                    android:progressTint="@color/green"
+                    android:progressBackgroundTint="@color/gray_light"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp" />
+                
+                <TextView
+                    android:id="@+id/server_load_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="45%"
+                    android:textSize="10sp"
+                    android:textColor="@color/green"
+                    android:textStyle="bold" />
+                
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Server Meta (Ping & Check Mark) -->
+        <LinearLayout
+            android:id="@+id/server_meta_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:gravity="end|center_vertical">
+
+            <!-- Ping Information -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/ping_indicator"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_signal"
+                    android:tint="@color/green"
+                    android:layout_marginEnd="4dp" />
+
+                <TextView
+                    android:id="@+id/server_ping"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25 ms"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/green" />
+
+            </LinearLayout>
+
+            <!-- Check Mark (Visible when selected) -->
+            <ImageView
+                android:id="@+id/check_mark"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_check_circle"
+                android:tint="@color/sktgruy"
+                android:layout_marginTop="8dp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

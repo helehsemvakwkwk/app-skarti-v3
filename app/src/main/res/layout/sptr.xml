@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_marginTop="10dp"
+	android:layout_height="fill_parent"
+	android:orientation="horizontal">
+
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp"
+		android:background="@drawable/skt1_gradient"
+		android:layout_height="90.0dip"
+		android:gravity="center|left">
+		
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="100dp"
+			android:layout_height="wrap_content">
+			
+		<LinearLayout
+			android:gravity="center"
+			android:orientation="vertical"
+			android:padding="1dip"
+			android:layout_weight="1.0"
+			android:layout_width="match_parent"
+			android:layout_height="fill_parent">
+
+			<com.google.android.material.textview.MaterialTextView
+				android:textAppearance="?android:textAppearanceMedium"
+				android:textStyle="bold"
+				android:layout_width="wrap_content"
+				android:id="@+id/configv"
+				android:layout_height="wrap_content"
+				android:textColor="#af6f54"
+				android:textSize="19dp"
+				android:text="XX"/>
+
+			<com.google.android.material.textview.MaterialTextView
+				android:textAppearance="?android:textAppearanceSmall"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="#807f84"
+				android:textSize="17dp"
+				android:text="Version"/>
+
+		</LinearLayout>
+		
+		</LinearLayout>
+		
+			<View
+				android:background="#302f34"
+				android:layout_width="1.0dip"
+				android:layout_height="fill_parent"
+				android:layout_marginLeft="5.0dip"
+				android:layout_marginRight="5.0dip"/>
+				
+		<LinearLayout
+			android:id="@+id/serverCardClickable"
+			android:orientation="horizontal"
+			android:layout_width="wrap_content"
+			android:layout_marginLeft="15dp"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:clickable="true"
+			android:focusable="true"
+			android:foreground="?android:attr/selectableItemBackground">
+
+			<LinearLayout
+				android:gravity="center"
+				android:orientation="vertical"
+				android:padding="1.0dip"
+				
+				android:layout_weight="1.0"
+				android:layout_width="match_parent"
+				android:layout_height="fill_parent">
+
+				<com.google.android.material.textview.MaterialTextView
+					android:textAppearance="?android:textAppearanceMedium"
+					android:textStyle="bold"
+					android:id="@+id/serverCount"
+					android:textColor="#af6f54"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="19dp"
+					android:text="02"/>
+
+				<com.google.android.material.textview.MaterialTextView
+					android:textAppearance="?android:textAppearanceSmall"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="17dp"
+					android:textColor="#807f84"
+					android:text="Servers"/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+		
+			<View
+				android:background="#302f34"
+				android:layout_width="1.0dip"
+				android:layout_height="fill_parent"
+				android:layout_marginLeft="15.0dip"
+				android:layout_marginRight="5.0dip"/>
+				
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="wrap_content"
+			android:layout_marginLeft="15dp"
+			android:layout_height="wrap_content"
+			android:gravity="center">
+
+			<LinearLayout
+				android:gravity="center"
+				android:orientation="vertical"
+				android:padding="1.0dip"
+				
+				android:layout_weight="1.0"
+				android:layout_width="match_parent"
+				android:layout_height="fill_parent">
+
+				<com.google.android.material.textview.MaterialTextView
+					android:textAppearance="?android:textAppearanceMedium"
+					android:textStyle="bold"
+					android:layout_width="wrap_content"
+					android:id="@+id/payCount"
+					android:textColor="#af6f54"
+					android:layout_height="wrap_content"
+					android:textSize="19dp"
+					android:text="44"/>
+
+				<com.google.android.material.textview.MaterialTextView
+					android:textAppearance="?android:textAppearanceSmall"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="17dp"
+					android:textColor="#807f84"
+					android:text="Configurations"/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+		
+	</LinearLayout>
+
+</LinearLayout>
+

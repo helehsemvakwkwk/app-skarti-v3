@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+ 
+        
+    
+    <item
+        android:id="@+id/offlz"
+        android:icon="@drawable/skarti_file"
+        android:title="Import Config"/>
+        
+    <item
+        android:id="@+id/updConf"
+		android:icon="@drawable/skarti_notif"
+        android:title="Update Config"/>
+        
+   	<item
+        android:visible="false"
+		android:id="@+id/miSettings"
+		android:icon="@drawable/skarti_setting"
+		android:title="Pengaturan"/>
+        
+     <item
+        android:visible="false"
+        android:id="@+id/profile"
+		android:icon="@drawable/skarti_web"
+        android:title="About Admin"/>
+   
+    <item
+        android:visible="false"
+        android:icon="@drawable/skarti_web"
+        android:title="Panel SSH - VPN"/>
+
+</menu>

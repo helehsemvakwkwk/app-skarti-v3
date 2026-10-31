@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="wrap_content"
+     android:layout_width="wrap_content"
+     android:background="#00ffffff"
+     android:orientation="vertical"
+     android:id="@+id/ivManagerAdapter_ItemLayout">
+
+    <RelativeLayout
+         android:layout_height="wrap_content"
+         android:layout_width="fill_parent"
+         android:orientation="horizontal">
+
+        <ImageView
+             android:layout_height="50dp"
+             android:layout_width="50dp"
+             android:layout_marginBottom="3dp"
+             android:layout_marginTop="3dp"
+             android:layout_marginStart="5dp"
+             android:id="@+id/ivManagerAdapter_ImageIcon" />
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:layout_toEndOf="@id/ivManagerAdapter_ImageIcon"
+             android:layout_centerInParent="true"
+             android:gravity="left"
+             android:orientation="vertical"
+             android:layout_marginStart="5dp"
+             android:id="@+id/listitemmanagerLinearLayout1">
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textSize="15sp"
+                 android:singleLine="true"
+                 android:textColor="@color/colorText"
+                 android:id="@+id/tvManagerAdapter_FolderName" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textSize="12sp"
+                 android:textColor="@color/colorAccent"
+                 android:singleLine="true"
+                 android:id="@+id/tvManagerAdapter_FolderNameDate" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

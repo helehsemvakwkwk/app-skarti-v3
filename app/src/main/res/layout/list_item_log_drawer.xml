@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="wrap_content"
+     android:layout_width="match_parent"
+     android:background="@drawable/skt3_gradient"
+     android:layout_margin="3dp"
+     android:orientation="vertical"
+     android:id="@+id/list_item_logsLinearLayout">
+
+    <com.google.android.material.textview.MaterialTextView
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:background="?attr/selectableItemBackground"
+         android:padding="3dp"
+         android:textSize="12sp"
+         android:textColor="#ffffff"
+         android:id="@+id/textLog" />
+         
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:background="?android:dividerVertical"/>
+		
+</LinearLayout>

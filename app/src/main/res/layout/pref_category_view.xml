@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textview.MaterialTextView
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="wrap_content"
+     android:layout_width="match_parent"
+     android:gravity="start|center"
+     android:textSize="10.0sp"
+     android:textAllCaps="true"
+     android:textColor="#ffecb3"
+     android:layout_marginTop="3.0dip"
+     android:layout_marginStart="20.0dip"
+     android:letterSpacing="0.1"
+     android:id="@android:id/title" />

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        
+                <group
+                android:id="@+id/crot"
+                android:checkableBehavior="single">
+                
+              </group>
+              
+                <group
+                android:id="@+id/gd"
+                android:checkableBehavior="single">
+				
+			    <item
+				android:id="@+id/miPhoneConfg"
+				android:icon="@drawable/skarti_plane"
+				android:title="@string/network_mobile"/>
+				
+				       </group>
+				
+			    <group
+                android:id="@+id/g99"
+                android:checkableBehavior="single">
+				
+				<item
+				android:id="@+id/pogse1"
+				android:icon="@drawable/skarti_hotspot"
+				android:title="Hotspot No Root"/>
+
+                        </group>
+    
+                <group
+                android:id="@+id/g999"
+                android:checkableBehavior="single">
+                
+    	    	<item
+				android:id="@+id/speedtest"
+				android:icon="@drawable/skarti_speedtest"
+				android:title="SpeedTest Iπterπet"/>
+				         </group>
+				                <group
+                android:id="@+id/g99988"
+                android:checkableBehavior="single">
+                
+    	    	<item
+				android:id="@+id/premium"
+				android:icon="@drawable/skarti_premium"
+				android:title="Price and Buy VPN"/>
+				
+				         </group>
+                 <group
+                android:id="@+id/g2"
+                android:checkableBehavior="single">
+            
+                 <item
+                android:icon="@drawable/skarti_delete"
+                android:id="@+id/clearz"
+                android:title="Clear Data Application"/>
+                        </group>
+
+        	     <item
+            	android:visible="false"
+	    	    android:id="@+id/miAvaliarPlaystore"
+	        	android:icon="@drawable/ic_rate_review_black_24dp"
+	    	    android:title="Report Bug"/>
+	    	
+	             <item
+                android:visible="false"
+                android:icon="@drawable/bell"
+                android:id="@+id/Bell"
+                android:title="Release Notes"/>
+	
+</menu>

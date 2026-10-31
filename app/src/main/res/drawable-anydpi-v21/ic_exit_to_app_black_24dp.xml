@@ -1,0 +1,51 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:viewportWidth="96"
+    android:viewportHeight="96"
+    android:width="96dp"
+    android:height="96dp">
+    <path
+        android:pathData="M15.5 13L13.5 16L15.5 13Z"
+        android:fillColor="#000000"
+        android:fillAlpha="0.6352941"
+        android:strokeColor="#000000"
+        android:strokeAlpha="0.6352941"
+        android:strokeWidth="1" />
+    <path
+        android:pathData="M80.5 13L82.5 16L80.5 13Z"
+        android:fillColor="#000000"
+        android:fillAlpha="0.6352941"
+        android:strokeColor="#000000"
+        android:strokeAlpha="0.6352941"
+        android:strokeWidth="1" />
+    <path
+        android:pathData="M45.5 28L66 47.5L46.5 68L40 62.5L51 52.5L41 62.5L45.5 67L65 48.5L46.5 29L41 33.5L50.5 44L40 33.5L45.5 28Z"
+        android:fillColor="#000000"
+        android:fillAlpha="0.6352941"
+        android:strokeColor="#000000"
+        android:strokeAlpha="0.6352941"
+        android:strokeWidth="1" />
+    <path
+        android:pathData="M13.5 80L15.5 83L13.5 80Z"
+        android:fillColor="#000000"
+        android:fillAlpha="0.6352941"
+        android:strokeColor="#000000"
+        android:strokeAlpha="0.6352941"
+        android:strokeWidth="1" />
+    <path
+        android:pathData="M82.5 80L80.5 83L82.5 80Z"
+        android:fillColor="#000000"
+        android:fillAlpha="0.6352941"
+        android:strokeColor="#000000"
+        android:strokeAlpha="0.6352941"
+        android:strokeWidth="1" />
+    <path
+        android:pathData="M20.5 12L75.5 12L82 15.5L84 20.5L84 75.5L80.5 82L75.5 84L20.5 84L14 80.5L12 75.5L12 60L20 60L20 75.5L20.5 76L76 76L76 20L20 20L20 36L12 36L12 20.5L13 16.5L16.5 13L20.5 12Z"
+        android:fillColor="#000000"
+        android:strokeColor="#000000"
+        android:strokeWidth="1" />
+    <path
+        android:pathData="M45.5 29L65 47.5L46.5 67L41 62.5L50.5 52L12.5 52L12 51.5L12 44L51 43.5L41 33.5L45.5 29Z"
+        android:fillColor="#000000"
+        android:strokeColor="#000000"
+        android:strokeWidth="1" />
+</vector>

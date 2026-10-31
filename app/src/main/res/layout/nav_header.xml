@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="125dp"
+    android:orientation="vertical"
+    android:background="@drawable/skt7_gradient"
+    android:gravity="center"
+    android:padding="15dp">
+
+    <!-- Header Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center|left"
+        android:padding="10dp">
+
+        <!-- Profile Image -->
+        <ImageView
+            android:id="@+id/nav_header_circleimageview_id"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/yeay"
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_background" />
+
+        <!-- App Name -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/nav_header_name_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ℙ𝕣𝕖𝕞𝕚𝕦𝕞"
+            android:layout_marginLeft="8dp"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
+            
+        <!-- Greeting Message -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/greeting_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" V"
+            android:textSize="15sp"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
+
+        <!-- Greeting Message -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 23.0.7"
+            android:textSize="18sp"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"/>
+            
+        <!-- Subtext -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/nav_header_message_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="Best Regard ❤ : All Member Skarti"
+            android:textSize="12sp"
+            android:alpha="0.7"
+            android:textColor="@android:color/white"
+            android:paddingTop="4dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="@color/transparent">
+
+    <androidx.core.widget.NestedScrollView
+         android:layout_height="match_parent"
+         android:layout_width="match_parent"
+         android:orientation="vertical">
+
+        <LinearLayout
+             android:layout_height="fill_parent"
+             android:layout_width="fill_parent"
+             android:focusableInTouchMode="true"
+             android:orientation="vertical"
+             android:focusable="true"
+             android:id="@+id/activity_mainLinearLayout">
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:visibility="visible"
+                 android:gravity="center"
+                 android:padding="10dip"
+                 android:orientation="vertical"
+                 android:layout_marginLeft="25dp"
+                 android:layout_marginRight="25dp"
+                 android:layout_marginTop="5dp">
+                 
+                 	<com.google.android.material.textview.MaterialTextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textColor="#FFFFFF"
+					android:textStyle="bold"
+					android:shadowColor="#FF000000"
+					android:shadowDy="5.0"
+					android:shadowRadius="1.5"
+					android:textAppearance="?android:attr/textAppearanceLarge"
+					android:typeface="serif"
+					android:fontFamily="@font/skartivpn"
+					android:gravity="center"
+					android:textSize="18sp"
+					android:id="@+id/SaputraTechOperator"
+					android:text="SIM CARD"
+					android:layout_marginTop="1dp"/>
+					
+                 
+                     <!-- Header Content -->
+                     
+                 <include
+                    layout="@layout/saputratech"
+					android:layout_weight="1.0"/>
+                
+                <include
+                    layout="@layout/sptr"
+					android:layout_weight="1.0"/>
+					
+				<include
+				android:background="@drawable/skt5_gradient"
+                    layout="@layout/sptr0"
+					android:layout_weight="1.0"/>
+					
+				<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_marginLeft="6dp"
+		android:layout_marginRight="6dp"
+		android:layout_marginTop="10dp"
+		android:padding="10dp"
+		android:background="@drawable/skt2_gradient"
+		android:layout_height="wrap_content"
+		app:cardCornerRadius="2.0dp">
+		
+	
+		
+		                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:visibility="visible"
+                     android:gravity="center"
+                     android:layout_marginTop="10dp"
+                     android:orientation="vertical">
+                     
+                     	
+				<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_marginLeft="6dp"
+		android:layout_marginRight="6dp"
+		android:gravity="center"
+		android:layout_height="wrap_content">
+		
+			<com.google.android.material.textview.MaterialTextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textColor="#FFFFFF"
+					android:textStyle="bold"
+					android:shadowColor="#FF000000"
+					android:shadowDy="5.0"
+					android:shadowRadius="1.5"
+					android:textAppearance="?android:attr/textAppearanceLarge"
+					android:typeface="serif"
+					android:fontFamily="@font/skartivpn"
+					android:gravity="center"
+					android:textSize="18sp"
+					android:text="Details"
+					android:layout_marginTop="1dp"/>
+					
+		</LinearLayout>
+
+            <RelativeLayout
+                     android:layout_height="wrap_content"
+                     android:layout_marginLeft="15dp"
+                     android:layout_marginTop="10dp"
+	              	 android:layout_marginRight="15dp"
+	              	 android:background="@drawable/skt5_gradient"
+                     android:layout_width="fill_parent">
+                     
+                     <ImageView
+					android:src="@drawable/skt_config"
+					android:layout_marginTop="20dp"
+					android:layout_marginLeft="15dp"
+					android:layout_width="30dp"
+					android:layout_height="26dp"/>
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="47dp"
+                         android:layout_width="fill_parent"
+                         android:background="@color/transparent"
+                         android:popupBackground="@drawable/neth_gradi"
+                         android:spinnerMode="dropdown"
+                         android:id="@+id/serverSpinner"
+                         android:foreground="?android:selectableItemBackground" />
+
+                </RelativeLayout>
+                
+                                    <RelativeLayout
+                          android:layout_marginLeft="15dp"
+		                 android:layout_marginRight="15dp"
+		                 android:layout_marginTop="5dp"
+		                 android:background="@drawable/skt5_gradient"
+                         android:layout_height="wrap_content"
+                         android:layout_width="fill_parent">
+
+                        <ImageView
+					android:src="@drawable/skt_server"
+					android:layout_marginTop="20dp"
+					android:layout_marginLeft="15dp"
+					android:layout_width="30dp"
+					android:layout_height="26dp"/>
+					
+                        <androidx.appcompat.widget.AppCompatSpinner
+                             android:layout_height="wrap_content"
+                             android:layout_width="fill_parent"
+                             android:background="@color/transparent"
+                             android:layout_marginRight="0.0dip"
+                             android:popupBackground="@drawable/neth_gradi"
+                             android:spinnerMode="dropdown"
+                             android:id="@+id/payloadSpinner"
+                             android:layout_marginLeft="47dp"
+                             android:foreground="@color/transparent" />
+
+                    </RelativeLayout>
+                
+                        <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:visibility="visible"
+                     android:gravity="center"
+                     android:layout_marginTop="10dp"
+                     android:orientation="vertical">
+                     
+                    <RelativeLayout
+                    android:id="@+id/h_u_l"
+                     android:layout_height="60dp"
+                     android:gravity="center|left"
+                     android:background="@drawable/skt3_gradient"
+                     android:layout_marginLeft="15dp"
+	              	 android:layout_marginRight="15dp"
+                     android:layout_width="fill_parent">
+                     
+                            <ImageView
+					android:src="@drawable/skt_user"
+					android:layout_marginTop="12dp"
+					android:layout_marginLeft="15dp"
+					android:layout_width="30dp"
+					android:layout_height="26dp"/>
+					
+						
+            <RelativeLayout
+                     android:layout_height="50dp"
+                     android:layout_marginLeft="50dp"
+                     android:layout_marginTop="0dp"
+	              	 android:layout_marginRight="5dp"
+	              	 android:background="@drawable/skt3_gradient"
+                     android:layout_width="fill_parent">
+                     
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/activity_mainInputPasswordUserEdit"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="15dp"
+            android:background="@null"
+            android:hint=" Username"
+            android:imeOptions="actionUnspecified|normal"
+            android:inputType="text"
+            android:nextFocusDown="@+id/HarliePasss"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:textColor="#1b5e20"
+            android:textColorHint="#98989a"
+            android:textSize="15sp" />
+</RelativeLayout>
+    </RelativeLayout>
+
+
+                     
+                                <RelativeLayout
+                    android:id="@+id/fragment_userpassTextInputLayout"
+                     android:layout_height="60dp"
+                     android:layout_marginLeft="15dp"
+                     android:gravity="center|left"
+                     android:layout_marginTop="5dp"
+                     android:background="@drawable/skt3_gradient"
+	              	 android:layout_marginRight="15dp"
+                     android:layout_width="fill_parent">
+                     
+                                                 <ImageView
+					android:src="@drawable/skt_pass"
+					android:layout_marginTop="12dp"
+					android:layout_marginLeft="15dp"
+					android:layout_width="30dp"
+					android:layout_height="26dp"/>
+					
+						
+            <RelativeLayout
+                     android:layout_height="50dp"
+                     android:layout_marginLeft="50dp"
+                     android:layout_marginTop="0dp"
+	              	 android:layout_marginRight="5dp"
+	              	 android:background="@drawable/skt3_gradient"
+                     android:layout_width="fill_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/activity_mainInputPasswordPassEdit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="15dp"
+                android:background="@null"
+                android:hint=" Password"
+                android:inputType="textPassword"
+                android:paddingLeft="5dp"
+                android:singleLine="true"
+                android:textColor="#b71c1c"
+                android:textColorHint="#98989a"
+                android:textSize="15sp" />
+</RelativeLayout>
+                     </RelativeLayout>
+
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:visibility="visible"
+                     android:gravity="center"
+                     android:layout_marginTop="10dp"
+                     android:orientation="vertical">
+                     
+                                   </LinearLayout>
+                                   
+                                                                      </LinearLayout>
+              </LinearLayout>
+                
+            </LinearLayout>
+        
+                <include
+                    layout="@layout/saputra"
+					android:layout_weight="1.0"/>
+					
+					<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:padding="10dp">
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:gravity="center"
+                 android:visibility="gone"
+                 android:layout_marginLeft="15dp"
+                 android:layout_marginRight="15dp"
+                 android:layout_margin="5dp"
+                 android:orientation="horizontal">
+
+                <ImageView
+                     android:layout_height="50dp"
+                     android:layout_width="50dp"
+                     android:src="@drawable/skarti_tele"
+                     android:onClick="jointele" />
+
+                <ImageView
+                     android:layout_height="50dp"
+                     android:layout_width="50dp"
+                     android:layout_marginLeft="15dp"
+                     android:layout_marginRight="15dp"
+                     android:src="@drawable/skarti_wa"/>
+                 
+
+</LinearLayout>
+	
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:gravity="center|top"
+                 android:visibility="gone"
+                 android:layout_marginTop="10.0dip"
+                 android:orientation="horizontal"
+                 android:layout_weight="1.0"
+                 android:layout_gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textAppearance="?android:textAppearanceSmall"
+                     android:textSize="15.0sp"
+                     android:textColor="#ffecb3"
+                     android:layout_marginStart="0dip"
+                     android:text="Update Time: " />
+
+                <com.google.android.material.textview.MaterialTextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textAppearance="?android:textAppearanceSmall"
+                     android:textSize="15.0sp"
+                     android:textColor="#ffecb3"
+                     android:layout_marginStart="0.0dip"
+                     android:id="@+id/update"
+                     android:text="2022-12-27 09:22 PM"
+                     android:textStyle="bold" />
+
+            </LinearLayout>
+      
+            
+                </LinearLayout>
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:gravity="center"
+                 android:visibility="gone"
+                 android:layout_marginLeft="15dp"
+                 android:layout_marginRight="15dp"
+                 android:layout_margin="5dp"
+                 android:orientation="horizontal">
+
+                <ImageView
+                     android:layout_height="50dp"
+                     android:layout_width="50dp"
+                     android:src="@drawable/skarti_tele"
+                     android:onClick="jointele" />
+
+                <ImageView
+                     android:layout_height="50dp"
+                     android:layout_width="50dp"
+                     android:layout_marginLeft="15dp"
+                     android:layout_marginRight="15dp"
+                     android:src="@drawable/skarti_wa"
+                     android:onClick="joinwa" />
+
+                <ImageView
+                     android:layout_height="50dp"
+                     android:layout_width="50dp"
+                     android:src="@drawable/skarti_yt"
+                     android:onClick="joinyt" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:visibility="gone"
+                 android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:gravity="center"
+                     android:textSize="11.0sp"
+                     android:id="@+id/monsour_stats"
+                     android:text="Start First!" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                 android:layout_height="0dp"
+                 android:layout_width="fill_parent"
+                 android:visibility="gone"
+                 android:gravity="center"
+                 android:layout_alignParentBottom="true"
+                 android:layout_weight="1.0">
+
+                <com.google.android.material.textview.MaterialTextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textAppearance="?android:textAppearanceSmall"
+                     android:textSize="11.0sp"
+                     android:id="@+id/nethie"
+                     android:text="@string/app_name" />
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        </LinearLayout>
+        
+    </androidx.core.widget.NestedScrollView>
+    
+                    <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="fill_parent"
+                     android:visibility="gone"
+                     android:gravity="center"
+                     android:orientation="horizontal">
+
+                    <LinearLayout
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:textAppearance="?android:textAppearanceSmall"
+                             android:textSize="11.0sp"
+                             android:text="Upload: " />
+
+                        <com.google.android.material.textview.MaterialTextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:textAppearance="?android:textAppearanceSmall"
+                             android:textSize="11.0sp"
+                             android:id="@+id/upload"
+                             android:text="0 B" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textview.MaterialTextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:textAppearance="?android:textAppearanceSmall"
+                         android:textSize="11.0sp"
+                         android:text="•" />
+
+                    <LinearLayout
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:textAppearance="?android:textAppearanceSmall"
+                             android:textSize="11.0sp"
+                             android:text="Download: " />
+
+                        <com.google.android.material.textview.MaterialTextView
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:textAppearance="?android:textAppearanceSmall"
+                             android:textSize="11.0sp"
+                             android:id="@+id/download"
+                             android:text="0 B" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+    <FrameLayout
+         android:layout_height="match_parent"
+         android:layout_width="match_parent"
+         android:orientation="vertical">
+
+        <io.github.yavski.fabspeeddial.FabSpeedDial
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             app:miniFabBackgroundTint="@android:color/white"
+             app:miniFabDrawableTint="@android:color/black"
+             app:fabMenu="@menu/abc_menu"
+             app:fabGravity="bottom_end"
+             app:miniFabTitleTextColor="@android:color/black"
+             android:id="@+id/fabSpeedDial"
+             android:layout_gravity="bottom|right|center" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

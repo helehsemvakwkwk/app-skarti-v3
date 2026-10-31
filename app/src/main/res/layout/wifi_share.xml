@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:orientation="vertical">
+
+
+    <LinearLayout
+         android:layout_height="55.0dip"
+         android:layout_width="fill_parent"
+         android:layout_marginLeft="5dp"
+         android:background="@color/transparent"
+         android:orientation="horizontal">
+
+        <ImageView
+             android:layout_height="55.0dip"
+             android:layout_width="55.0dip"
+             android:src="@drawable/back_icon"
+             android:padding="15.0dip"
+             app:tint="#ffffffff"
+             android:onClick="btnHardwareIDi" />
+
+        <TextView
+             android:layout_height="55.0dip"
+             android:layout_width="fill_parent"
+             android:gravity="center|left"
+             android:textSize="15.0dip"
+             android:textColor="#ffffffff"
+             android:text="Hotspot Tether" />
+
+    </LinearLayout>
+
+    
+                <LinearLayout
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:background="@drawable/sptr2"
+                     android:gravity="center"
+                     android:padding="5dp"
+                     android:orientation="vertical"
+                     android:layout_marginLeft="25dp"
+                     android:layout_marginRight="25dp"
+                     android:layout_gravity="center">
+
+                    <ImageView
+                         android:layout_height="60dp"
+                         android:layout_width="60dp"
+                         android:src="@drawable/skarti_wifi" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                         android:layout_height="wrap_content"
+                         android:layout_width="wrap_content"
+                         android:gravity="center"
+                         android:fontFamily="@font/skartivpn"
+                         android:textSize="19.0sp"
+                         android:textColor="#FF5A595B"
+                         android:layout_marginTop="5dp"
+                         android:text="🌩 Android Proxy No Root 🌩" />
+
+                </LinearLayout>
+
+
+    <LinearLayout
+         android:layout_height="match_parent"
+         android:layout_width="match_parent"
+         android:orientation="vertical">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:background="@drawable/sptr4wifi"
+             android:gravity="center"
+             android:padding="5.0dip"
+             android:orientation="vertical"
+             android:layout_marginLeft="25dp"
+             android:layout_marginRight="25dp"
+             android:layout_marginTop="10dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                 android:layout_height="fill_parent"
+                 android:layout_width="fill_parent"
+                 android:gravity="center"
+                 android:textColor="@color/white"
+                 android:layout_marginTop="5dp"
+                 android:id="@+id/tv_info" />
+
+            <Switch
+                 android:layout_height="50dp"
+                 android:layout_width="50dp"
+                 android:gravity="center"
+                 android:layout_gravity="center"
+                 android:id="@+id/cb_enable" />
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_height="50dp"
+             android:layout_width="match_parent"
+             android:background="@drawable/sptr4wifi"
+             android:gravity="center"
+             android:orientation="vertical"
+             android:visibility="visible"
+             android:layout_marginLeft="25dp"
+             android:layout_marginRight="25dp"
+             android:layout_marginTop="10dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                 android:layout_height="55dp"
+                 android:layout_width="fill_parent"
+                 android:gravity="center"
+                 android:textAppearance="?android:textAppearanceSmall"
+                 android:onClick="btnHardwareID2"
+                 android:textColor="@color/white"
+                 android:paddingStart="5.0dip"
+                 android:textStyle="bold"
+                 android:fontFamily="@font/skt"
+                 android:text="Click Here To Show Proxy and Port" />
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_height="50dp"
+             android:layout_width="match_parent"
+             android:background="@drawable/sptr4wifi"
+             android:gravity="center"
+             android:orientation="horizontal"
+             android:layout_marginLeft="25dp"
+             android:layout_marginRight="25dp"
+             android:layout_marginTop="10dp">
+
+            <Button
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:onClick="btnHardwareID"
+                 android:background="@color/transparent"
+                 android:fontFamily="@font/skt"
+                 android:textColor="@color/white"
+                 android:layout_weight="1.0"
+                 android:text="OPEN HOTSPOT" />
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:gravity="center"
+             android:background="@drawable/sptr4wifi"
+             android:padding="10dp"
+             android:orientation="vertical"
+             android:layout_marginLeft="25dp"
+             android:layout_marginRight="25dp"
+             android:layout_marginTop="10dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="fill_parent"
+                 android:textColor="@color/red"
+                 android:textAppearance="?android:textAppearanceSmall"
+                 android:text="How To Use:" />
+
+            <com.google.android.material.textview.MaterialTextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="fill_parent"
+                 android:textColor="#ffffff"
+                 android:textAppearance="?android:textAppearanceSmall"
+                 android:text="1. Turn on Hotspot." />
+
+            <com.google.android.material.textview.MaterialTextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="fill_parent"
+                 android:textColor="#ffffff"
+                 android:textAppearance="?android:textAppearanceSmall"
+                 android:text="2. Connect the other device (client) to the hotspot." />
+
+            <com.google.android.material.textview.MaterialTextView
+                 android:layout_height="wrap_content"
+                 android:textColor="#ffffff"
+                 android:layout_width="fill_parent"
+                 android:textAppearance="?android:textAppearanceSmall"
+                 android:text="3. On that device, modify the WiFi connection." />
+
+            <com.google.android.material.textview.MaterialTextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="fill_parent"
+                 android:textColor="#ffffff"
+                 android:textAppearance="?android:textAppearanceSmall"
+                 android:text="4. Click Advanced Options." />
+
+            <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="fill_parent"
+                 android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textAppearance="?android:textAppearanceSmall"
+                     android:textIsSelectable="true"
+                     android:textColor="#ffffff"
+                     android:id="@+id/activitymainTextView1"
+                     android:text="5 . Set to manual proxy and port" />
+
+            </LinearLayout>
+            
+                        <LinearLayout
+                 android:layout_height="wrap_content"
+                 android:layout_width="fill_parent"
+                 android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textAppearance="?android:textAppearanceSmall"
+                     android:textIsSelectable="true"
+                     android:textColor="#1465c0"
+                     android:text="6. See proxy and port to logs menu" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="fill_parent"
+                 android:textColor="#ffffff"
+                 android:textAppearance="?android:textAppearanceSmall"
+                 android:text="7 . Click Save, and you are done." />
+
+            <com.google.android.material.textview.MaterialTextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="fill_parent"
+                 android:textColor="#ffffff"
+                 android:textAppearance="?android:textAppearanceSmall"
+                 android:layout_marginTop="10.0dip"
+                 android:text="You can now enjoy the VPN connection of the host device!" />
+
+        </LinearLayout>
+
+       
+            <com.google.android.material.textview.MaterialTextView
+                 android:layout_height="50dp"
+                 android:layout_width="fill_parent"
+                 android:gravity="center"
+                 android:textAppearance="?android:textAppearanceSmall"
+                 android:textColor="@color/white"
+                 android:paddingStart="5.0dip"
+                 android:textStyle="bold"
+                 android:text="©Skarti VPN Official 2023-2025" />
+    
+        
+    </LinearLayout>
+
+   
+</LinearLayout>

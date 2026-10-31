@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+	
+	
+	<!-- Style geral do app -->
+    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:fontFamily">@font/googlesans</item>
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorSecondary</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="preferenceTheme">@style/AppPreference</item>
+		<item name="alertDialogTheme">@style/NethDialog</item>
+		<item name="android:fontFamily">@font/googlesans</item>
+	 <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowShowWallpaper">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+		<!--<item name="android:textColorPrimary">@color/textColorPrimary</item>
+		<item name="android:textColorSecondary">@color/textColorSecondary</item>-->
+		<item name="android:textColor">@color/colorText</item>
+		<item name="android:textColorHint">@color/colorText</item>
+		<item name="android:navigationBarColor" tools:targetApi="21">@android:color/transparent</item>
+		<item name="buttonTint">#ffecb3</item>
+	</style>
+
+    <style name="TabTitleTheme" parent="@style/TextAppearance.Design.Tab">
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:fontFamily">@font/googlesans</item>
+	</style>
+	<!-- Alert Dialog -->
+	<style name="NethDialog" parent="Theme.Material3.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+		<item name="android:textColor">@android:color/black</item>
+		<item name="android:textColorHint">@color/black_light</item>
+		<item name="buttonTint">@color/colorPrimary</item>
+        <item name="android:windowAnimationStyle">@style/Neth01</item>
+	  </style>
+	<style name="AppAlertDialog"
+        parent="Theme.Material3.Light.Dialog.Alert">
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:textColor">@android:color/black</item>
+		<item name="android:textColorHint">@color/colorPrimary</item>
+		<item name="buttonTint">@color/sktcyan</item>
+        <item name="android:windowAnimationStyle">@style/Neth01</item>
+	</style>
+    <style name="Neth01">
+        <item name="android:windowEnterAnimation">@anim/grow</item>
+        <item name="android:windowExitAnimation">@anim/abc_shrink_fade_out_from_bottom</item>
+    </style>
+	<style name="AppThemeLogin" parent="Theme.Material3.Light.NoActionBar">
+		<item name="alertDialogTheme">@style/AppAlertDialogLogin</item>
+		<item name="android:textColor">@android:color/black</item>
+		<item name="android:textColorHint">@color/colorAccent</item>
+	</style>
+	<!-- Alert Dialog -->
+	<style name="AppAlertDialogLogin"
+        parent="Theme.Material3.Light.Dialog.Alert">
+		<item name="android:textColor">@android:color/black</item>
+		<item name="android:textColorHint">@color/colorAccent</item>
+	</style>
+    
+    <style name="AppPreference" parent="PreferenceThemeOverlay">
+         <item name="android:windowBackground">@android:color/transparent</item>
+         <item name="android:windowShowWallpaper">true</item>
+         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:tint">@color/sktgreen</item>
+        <item name="android:textSize">13.0dip</item>
+        <item name="android:divider">@null</item>
+        <item name="android:background">@android:color/transparent</item>
+       
+        <item name="android:dividerHeight">0.0dip</item>
+        <item name="preferenceCategoryStyle">@style/CategoryStyle</item>
+	</style>
+        
+    <style name="ToolbarTitleTheme"
+        parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">19.0dip</item>
+        <item name="android:fontFamily">@font/skt</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowShowWallpaper">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+	</style>
+    <style name="NaviText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">12.0dip</item>
+        <item name="android:fontFamily">@font/skt</item>
+        <item name="android:textStyle">bold</item>
+	</style>
+
+	<style name="CategoryStyle" parent="Preference.Category">
+        <item name="android:layout">@layout/pref_category_view</item>
+    </style>
+	
+    <style name="ToolbarSubtitleTheme" 
+        parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/googlesans</item>
+        <item name="android:textSize">10.0dip</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:windowBackground">@color/transparent</item>
+    <item name="android:windowShowWallpaper">true</item>
+    <item name="android:statusBarColor">@color/transparent</item>
+	
+            <!-- Alert Dialog -->
+    </style>
+    
+    
+	
+	<!-- Toolbar theme -->
+	<style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+		<!-- android:textColorPrimary is the color of the title text in the Toolbar  -->
+		<item name="android:textColorPrimary">@color/white</item>
+		<!-- actionMenuTextColor is the color of the text of action (menu) items  -->
+		<item name="actionMenuTextColor">@android:color/holo_green_light</item>
+		<!-- Tints the input fields like checkboxes and text fields -->
+		<item name="colorAccent">@color/gray</item>
+		<!-- Applies to views in their normal state. -->
+		<item name="colorControlNormal">@color/white</item>
+		<!-- Applies to views in their activated state (i.e checked or switches) -->
+		<item name="colorControlActivated">@color/blue_light</item>
+		<!-- Applied to framework control highlights (i.e ripples or list selectors) -->
+		<item name="colorControlHighlight">@color/gray_light</item>
+
+		<!-- Enable these below if you want clicking icons to trigger a ripple effect -->
+		<!-- 
+		<item name="selectableItemBackground">?android:selectableItemBackground</item>
+		<item name="selectableItemBackgroundBorderless">?android:selectableItemBackground</item> 
+		-->
+	</style>
+	
+	<!-- Necessario para o modo noturno-->
+	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat"/>
+	
+		
+	<style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+		<item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/skt</item>
+		<item name="android:textSize">21sp</item>
+		<item name="android:textStyle">normal</item>
+	</style>
+		
+	<!-- Style for Splash Screen -->
+    <style name="SplashScreenTheme" parent="Theme.Material3.Light.NoActionBar">
+		<item name="android:windowBackground">@color/sktgruy</item>
+        <item name="android:statusBarColor">@color/sktgruy</item>
+        <item name="android:navigationBarColor">@color/sktgruy</item>
+        </style>
+	
+</resources>
