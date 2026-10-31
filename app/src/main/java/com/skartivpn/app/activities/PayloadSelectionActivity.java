@@ -22,6 +22,7 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import com.skartivpn.app.adapter.PayloadSelectionAdapter;
 import com.skartivpn.app.model.PayloadItem;
+import com.skartivpn.app.util.ConfigUtil;
 import com.skarti.premium.v2.R;
 
 import java.util.ArrayList;
@@ -177,22 +178,27 @@ public class PayloadSelectionActivity extends BaseActivity implements PayloadSel
     }
 
     private void loadPayloads() {
-        // TODO: Load payloads from your data source (SharedPreferences, Database, or API)
-        // For now, adding sample data
         allPayloads.clear();
-        
-        // Sample payloads - replace with your actual data loading logic
-        allPayloads.add(new PayloadItem("1", "Direct Connection", "Direct connection without proxy", "DIRECT", true));
-        allPayloads.add(new PayloadItem("2", "SNI Bug", "GET / HTTP/1.1[crlf]Host: [host][crlf]Connection: Upgrade[crlf]Upgrade: websocket[crlf][crlf]", "SNI", true));
-        allPayloads.add(new PayloadItem("3", "Slowdns Mode", "Slowdns tunneling configuration", "SLOWDNS", true));
-        allPayloads.add(new PayloadItem("4", "SSL/TLS Direct", "SSL/TLS direct connection", "SSL/TLS", true));
-        allPayloads.add(new PayloadItem("5", "Websocket CDN", "GET wss://[host]/ HTTP/1.1[crlf]Host: [host][crlf]Connection: Upgrade[crlf]Upgrade: websocket[crlf][crlf]", "WEBSOCKET", true));
-        allPayloads.add(new PayloadItem("6", "Custom SNI 1", "GET / HTTP/1.1[crlf]Host: [custom_host][crlf]Connection: keep-alive[crlf][crlf]", "SNI", true));
-        allPayloads.add(new PayloadItem("7", "Custom SNI 2", "CONNECT [host]:443 HTTP/1.0[crlf][crlf]GET / HTTP/1.0[crlf]Host: [host][crlf][crlf]", "SNI", false));
-        allPayloads.add(new PayloadItem("8", "Game Mode", "Optimized payload for gaming", "DIRECT", true));
-        allPayloads.add(new PayloadItem("9", "Streaming Mode", "Optimized payload for video streaming", "WEBSOCKET", true));
-        allPayloads.add(new PayloadItem("10", "Low Latency", "Low latency configuration", "DIRECT", true));
-        
+        try {
+            ConfigUtil config = new ConfigUtil(this);
+            org.json.JSONArray array = config.getNetworksArray();
+            if (array != null) {
+                for (int i = 0; i < array.length(); i++) {
+                    org.json.JSONObject o = array.getJSONObject(i);
+                    String name = o.optString("Name", "Payload " + (i + 1));
+                    String info = o.optString("pInfo", "");
+                    String type;
+                    if (o.optBoolean("SlowDns", false)) type = "SLOWDNS";
+                    else if (o.optBoolean("isSSL", false)) type = "SSL/TLS";
+                    else if (o.optBoolean("isSslPayRp", false)) type = "SNI";
+                    else type = "DIRECT";
+                    // id is the REAL position in the config list.
+                    allPayloads.add(new PayloadItem(String.valueOf(i), name, info, type, true));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         filterPayloads("");
     }
 

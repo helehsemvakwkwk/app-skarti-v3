@@ -108,61 +108,6 @@
 					android:layout_marginTop="1dp"/>
 					
 		</LinearLayout>
-
-            <RelativeLayout
-                     android:layout_height="wrap_content"
-                     android:layout_marginLeft="15dp"
-                     android:layout_marginTop="10dp"
-	              	 android:layout_marginRight="15dp"
-	              	 android:background="@drawable/skt5_gradient"
-                     android:layout_width="fill_parent">
-                     
-                     <ImageView
-					android:src="@drawable/skt_config"
-					android:layout_marginTop="20dp"
-					android:layout_marginLeft="15dp"
-					android:layout_width="30dp"
-					android:layout_height="26dp"/>
-
-                    <androidx.appcompat.widget.AppCompatSpinner
-                         android:layout_height="wrap_content"
-                         android:layout_marginLeft="47dp"
-                         android:layout_width="fill_parent"
-                         android:background="@color/transparent"
-                         android:popupBackground="@drawable/neth_gradi"
-                         android:spinnerMode="dropdown"
-                         android:id="@+id/serverSpinner"
-                         android:foreground="?android:selectableItemBackground" />
-
-                </RelativeLayout>
-                
-                                    <RelativeLayout
-                          android:layout_marginLeft="15dp"
-		                 android:layout_marginRight="15dp"
-		                 android:layout_marginTop="5dp"
-		                 android:background="@drawable/skt5_gradient"
-                         android:layout_height="wrap_content"
-                         android:layout_width="fill_parent">
-
-                        <ImageView
-					android:src="@drawable/skt_server"
-					android:layout_marginTop="20dp"
-					android:layout_marginLeft="15dp"
-					android:layout_width="30dp"
-					android:layout_height="26dp"/>
-					
-                        <androidx.appcompat.widget.AppCompatSpinner
-                             android:layout_height="wrap_content"
-                             android:layout_width="fill_parent"
-                             android:background="@color/transparent"
-                             android:layout_marginRight="0.0dip"
-                             android:popupBackground="@drawable/neth_gradi"
-                             android:spinnerMode="dropdown"
-                             android:id="@+id/payloadSpinner"
-                             android:layout_marginLeft="47dp"
-                             android:foreground="@color/transparent" />
-
-                    </RelativeLayout>
                 
                         <LinearLayout
                      android:layout_height="wrap_content"

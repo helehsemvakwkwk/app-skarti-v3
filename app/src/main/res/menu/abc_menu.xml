@@ -13,8 +13,7 @@
         android:title="Update Config"/>
         
    	<item
-        android:visible="false"
-		android:id="@+id/miSettings"
+        android:id="@+id/miSettings"
 		android:icon="@drawable/skarti_setting"
 		android:title="Pengaturan"/>
         
@@ -29,4 +28,10 @@
         android:icon="@drawable/skarti_web"
         android:title="Panel SSH - VPN"/>
 
+
+    <item android:id="@+id/speedtest" android:icon="@drawable/skarti_speedtest" android:title="SpeedTest" />
+    <item android:id="@+id/pogse1" android:icon="@drawable/skarti_hotspot" android:title="Hotspot No Root" />
+    <item android:id="@+id/clearz" android:icon="@drawable/skarti_delete" android:title="Clear Data Application" />
+    <item android:id="@+id/Bell" android:icon="@drawable/bell" android:title="Release Notes" />
+    <item android:id="@+id/payloadSel" android:icon="@drawable/skarti_file" android:title="Pilih Payload" />
 </menu>

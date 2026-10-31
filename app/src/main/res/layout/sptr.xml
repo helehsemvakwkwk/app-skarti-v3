@@ -108,11 +108,15 @@
 				android:layout_marginRight="5.0dip"/>
 				
 		<LinearLayout
+			android:id="@+id/payloadCardClickable"
 			android:orientation="horizontal"
 			android:layout_width="wrap_content"
 			android:layout_marginLeft="15dp"
 			android:layout_height="wrap_content"
-			android:gravity="center">
+			android:gravity="center"
+			android:clickable="true"
+			android:focusable="true"
+			android:foreground="?android:attr/selectableItemBackground">
 
 			<LinearLayout
 				android:gravity="center"

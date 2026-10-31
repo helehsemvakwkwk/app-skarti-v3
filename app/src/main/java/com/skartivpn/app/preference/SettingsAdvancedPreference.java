@@ -125,13 +125,9 @@ public class SettingsAdvancedPreference extends PreferenceFragmentCompat
 	{
 		switch(pref.getKey()) {
 			case MODO_DEBUG_KEY:
-				boolean isDebug = (boolean) newValue;
-                pref.setEnabled(false);
-				if (isDebug) {
-					Toast.makeText(getContext(), "Feature not implemented.",
-						Toast.LENGTH_SHORT).show();
-				}
-			break;
+				// Debug mode is implemented: LogsAdapter uses it for DEBUG log
+				// level and the tunnel logs extra diagnostics when enabled.
+				break;
 
 			case FILTER_APPS:
 				boolean isEnabled = (boolean) newValue;

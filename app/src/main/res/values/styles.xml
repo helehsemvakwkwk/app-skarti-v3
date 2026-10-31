@@ -11,15 +11,15 @@
 		<item name="preferenceTheme">@style/AppPreference</item>
 		<item name="alertDialogTheme">@style/NethDialog</item>
 		<item name="android:fontFamily">@font/googlesans</item>
-	 <item name="android:windowBackground">@android:color/transparent</item>
+	 <item name="android:windowBackground">@color/skarti_white</item>
     <item name="android:windowShowWallpaper">true</item>
-    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:statusBarColor">@color/skarti_purple_dark</item>
 		<!--<item name="android:textColorPrimary">@color/textColorPrimary</item>
 		<item name="android:textColorSecondary">@color/textColorSecondary</item>-->
 		<item name="android:textColor">@color/colorText</item>
 		<item name="android:textColorHint">@color/colorText</item>
-		<item name="android:navigationBarColor" tools:targetApi="21">@android:color/transparent</item>
-		<item name="buttonTint">#ffecb3</item>
+		<item name="android:navigationBarColor" tools:targetApi="21">@color/skarti_white</item>
+		<item name="buttonTint">@color/skarti_purple</item>
 	</style>
 
     <style name="TabTitleTheme" parent="@style/TextAppearance.Design.Tab">
@@ -59,9 +59,9 @@
 	</style>
     
     <style name="AppPreference" parent="PreferenceThemeOverlay">
-         <item name="android:windowBackground">@android:color/transparent</item>
+         <item name="android:windowBackground">@color/skarti_white</item>
          <item name="android:windowShowWallpaper">true</item>
-         <item name="android:statusBarColor">@android:color/transparent</item>
+         <item name="android:statusBarColor">@color/skarti_purple_dark</item>
         <item name="android:tint">@color/sktgreen</item>
         <item name="android:textSize">13.0dip</item>
         <item name="android:divider">@null</item>
@@ -77,9 +77,9 @@
         <item name="android:fontFamily">@font/skt</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/skarti_white</item>
     <item name="android:windowShowWallpaper">true</item>
-    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:statusBarColor">@color/skarti_purple_dark</item>
 	</style>
     <style name="NaviText" parent="@android:style/TextAppearance">
         <item name="android:textSize">12.0dip</item>

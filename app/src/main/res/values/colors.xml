@@ -21,19 +21,24 @@
     <color name="button_pressed">@color/colorPrimaryDark</color>
     <color name="button_normal">@color/colorPrimary</color>
   
-    <color name="colorPrimary">@color/sktgruy</color>
-    <color name="colorPrimaryDark">@color/blue</color>
-    <color name="colorSecondary">@color/blue</color>
-    <color name="colorAccent">@color/gray</color>
-    <color name="textColorPrimary">#1d88e5</color>
+    <color name="colorPrimary">@color/skarti_purple</color>
+    <color name="colorPrimaryDark">@color/skarti_purple_dark</color>
+    <color name="colorSecondary">@color/skarti_purple</color>
+    <color name="colorAccent">@color/skarti_purple</color>
+    <color name="textColorPrimary">#1F2937</color>
     <color name="textColorSecondary">#000000</color>
-    <color name="colorTextEnabled">#1d88e5</color>
+    <color name="colorTextEnabled">#1F2937</color>
     <color name="colorTextDisabled">#5B5B5B</color>
-    <color name="colorText">#1d88e5</color>
-    <color name="colorPrimaryBackground">@android:color/transparent</color>
-    <color name="colorSecondaryBackground">@android:color/transparent</color>
-    <color name="colorDivider">#1d88e5</color>
+    <color name="colorText">#1F2937</color>
+    <color name="colorPrimaryBackground">@color/skarti_white</color>
+    <color name="colorSecondaryBackground">@color/skarti_purple_light</color>
+    <color name="colorDivider">#E5E7EB</color>
     <color name="transparent">#00ffffff</color>
     
     
+
+    <color name="skarti_purple">#7C3AED</color>
+    <color name="skarti_purple_dark">#5B21B6</color>
+    <color name="skarti_purple_light">#EDE9FE</color>
+    <color name="skarti_white">#FFFFFF</color>
 </resources>

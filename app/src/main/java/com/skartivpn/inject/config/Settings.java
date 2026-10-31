@@ -14,7 +14,6 @@ public class Settings implements SettingsConstants
 {
 	private Context mContext;
 	private SharedPreferences mPrefs;
-	private static String PINGER;
 	private SecurePreferences mPrefsPrivate;
 	
 	private static SecurityConfig minimumConfig = new SecurityConfig.Builder("vmmV2RayInt36489")
@@ -132,12 +131,15 @@ public class Settings implements SettingsConstants
 	
 	public String[] getFilterApps() {
 		String txt = mPrefs.getString(FILTER_APPS_LIST, "");
-		if (txt.isEmpty()) {
+		if (txt == null || txt.trim().isEmpty()) {
 			return new String[]{};
 		}
-		else {
-			return txt.split("\n");
+		java.util.ArrayList<String> out = new java.util.ArrayList<>();
+		for (String part : txt.split("[\n,;\s]+")) {
+			String s = part.trim();
+			if (!s.isEmpty()) { out.add(s); }
 		}
+		return out.toArray(new String[0]);
 	}
 	
 	public boolean getIsTetheringSubnet() {

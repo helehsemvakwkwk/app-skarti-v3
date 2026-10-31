@@ -62,7 +62,29 @@
             android:name="com.skartivpn.app.PhreakersMainActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name">
+            <!-- Open .skarti/.json files shared from WhatsApp, Telegram, Files, etc.
+                 Content URIs from messengers usually carry no filename, so they
+                 are matched by mime type; local files are matched by extension. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="content" />
+                <data android:mimeType="application/octet-stream" />
+                <data android:mimeType="application/json" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="file" />
+                <data android:host="*" />
+                <data android:pathPattern=".*\.skarti" />
+                <data android:pathPattern=".*\.json" />
+            </intent-filter>
+        </activity>
             
 <service android:name="com.skartivpn.app.ui.ProxyService" />
 		<activity
@@ -73,11 +95,6 @@
             android:name="com.skartivpn.app.activities.ConfigGeralActivity"
             android:parentActivityName="com.skartivpn.app.PhreakersMainActivity"
             android:label="@string/settings"/>
-
-        <activity android:exported="true"
-            android:name="com.skartivpn.app.activities.HostChecker"
-            android:label="Host Checker"
-            android:parentActivityName="com.skartivpn.app.PhreakersMainActivity"/>
 
        
         <activity
@@ -182,69 +199,6 @@
 		    android:screenOrientation="portrait"/>
 
 		<!-- Config Import Activity - Handles file imports via intent filter -->
-		<activity
-		    android:name="com.skartivpn.app.activities.ConfigImportActivity"
-		    android:exported="true"
-		    android:label="Import VPN Config"
-		    android:theme="@android:style/Theme.Translucent.NoTitleBar"
-		    android:noHistory="true"
-		    android:excludeFromRecents="true">
-
-		    <!-- Intent filter for .ovpn files (OpenVPN config) -->
-		    <intent-filter android:priority="100">
-		        <action android:name="android.intent.action.VIEW" />
-		        <action android:name="android.intent.action.EDIT" />
-		        <action android:name="android.intent.action.PICK" />
-
-		        <category android:name="android.intent.category.DEFAULT" />
-		        <category android:name="android.intent.category.BROWSABLE" />
-
-		        <!-- Support .ovpn files -->
-		        <data android:scheme="file" />
-		        <data android:scheme="content" />
-		        <data android:mimeType="*/*" />
-		        <data android:pathPattern=".*\\.ovpn" />
-		        <data android:host="*" />
-		    </intent-filter>
-
-		    <!-- Intent filter for .conf files (alternative config) -->
-		    <intent-filter android:priority="100">
-		        <action android:name="android.intent.action.VIEW" />
-
-		        <category android:name="android.intent.category.DEFAULT" />
-		        <category android:name="android.intent.category.BROWSABLE" />
-
-		        <data android:scheme="file" />
-		        <data android:scheme="content" />
-		        <data android:mimeType="*/*" />
-		        <data android:pathPattern=".*\\.conf" />
-		        <data android:host="*" />
-		    </intent-filter>
-
-		    <!-- Intent filter for text/plain mime type -->
-		    <intent-filter android:priority="50">
-		        <action android:name="android.intent.action.VIEW" />
-		        <action android:name="android.intent.action.SEND" />
-
-		        <category android:name="android.intent.category.DEFAULT" />
-		        <category android:name="android.intent.category.BROWSABLE" />
-
-		        <data android:mimeType="text/plain" />
-		        <data android:mimeType="application/x-openvpn-profile" />
-		    </intent-filter>
-
-		    <!-- Intent filter for custom scheme (deep linking) -->
-		    <intent-filter android:priority="100">
-		        <action android:name="android.intent.action.VIEW" />
-
-		        <category android:name="android.intent.category.DEFAULT" />
-		        <category android:name="android.intent.category.BROWSABLE" />
-
-		        <data android:scheme="skartivpn" />
-		        <data android:host="import" />
-		    </intent-filter>
-
-		</activity>
 
     </application>
 

@@ -61,12 +61,9 @@ public void onCreate(Bundle icicle) {
     String savedUsername = mConfig.getPrivString(Settings.USUARIO_KEY);
     String savedPassword = mConfig.getPrivString(Settings.SENHA_KEY);
     
-    // Jika username dan password sudah ada, langsung lanjutkan ke proses VPN
-    if (!savedUsername.isEmpty() && !savedPassword.isEmpty()) {
-        // Lanjutkan ke proses VPN
-        launchVPN();
-
-    }
+    // Always start the VPN flow: if credentials are missing, onActivityResult
+    // will prompt for them via askForPW instead of leaving a blank screen.
+    launchVPN();
 }
 
 
