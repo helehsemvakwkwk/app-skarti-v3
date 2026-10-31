@@ -180,24 +180,23 @@
 		<activity android:name="com.skartivpn.app.SktPremium"/>
 		<activity android:name="com.skartivpn.app.Profile"/>
 		
-		<!-- Modern Server Selection Activity -->
+		<!-- Custom profiles (replaces Server/Payload selection) -->
 		<activity
-		    android:name="com.skartivpn.app.activities.ServerSelectionActivity"
+		    android:name="com.skartivpn.app.custom.CustomProfileListActivity"
 		    android:exported="false"
-		    android:label="Select Server"
+		    android:label="Custom"
 		    android:parentActivityName="com.skartivpn.app.PhreakersMainActivity"
 		    android:theme="@style/AppTheme"
 		    android:screenOrientation="portrait"/>
 		
-		<!-- Modern Payload Selection Activity -->
 		<activity
-		    android:name="com.skartivpn.app.activities.PayloadSelectionActivity"
+		    android:name="com.skartivpn.app.custom.CustomProfileEditorActivity"
 		    android:exported="false"
-		    android:label="Select Payload"
+		    android:label="Edit Custom"
 		    android:parentActivityName="com.skartivpn.app.PhreakersMainActivity"
 		    android:theme="@style/AppTheme"
 		    android:screenOrientation="portrait"/>
-
+		
 		<!-- Config Import Activity - Handles file imports via intent filter -->
 
     </application>

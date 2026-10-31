@@ -45,7 +45,7 @@
 				android:layout_height="wrap_content"
 				android:textColor="#64748B"
 				android:textSize="17dp"
-				android:text="Version"/>
+				android:text="Mode"/>
 
 		</LinearLayout>
 		
@@ -94,7 +94,7 @@
 					android:layout_height="wrap_content"
 					android:textSize="17dp"
 					android:textColor="#64748B"
-					android:text="Servers"/>
+					android:text="Profil"/>
 
 			</LinearLayout>
 
@@ -143,7 +143,7 @@
 					android:layout_height="wrap_content"
 					android:textSize="17dp"
 					android:textColor="#64748B"
-					android:text="Configurations"/>
+					android:text="Port"/>
 
 			</LinearLayout>
 

@@ -10,7 +10,7 @@
     <item
         android:id="@+id/updConf"
 		android:icon="@drawable/skarti_notif"
-        android:title="Update Config"/>
+        android:title="Profil Custom"/>
         
    	<item
         android:id="@+id/miSettings"
@@ -33,6 +33,6 @@
     <item android:id="@+id/pogse1" android:icon="@drawable/skarti_hotspot" android:title="Hotspot No Root" />
     <item android:id="@+id/clearz" android:icon="@drawable/skarti_delete" android:title="Clear Data Application" />
     <item android:id="@+id/Bell" android:icon="@drawable/bell" android:title="Release Notes" />
-    <item android:id="@+id/payloadSel" android:icon="@drawable/skarti_file" android:title="Pilih Payload" />
+    <item android:id="@+id/payloadSel" android:icon="@drawable/skarti_file" android:title="Tambah Custom" />
     <item android:id="@+id/logMenu" android:icon="@drawable/ic_event_note_black_24dp" android:title="Log" />
 </menu>
