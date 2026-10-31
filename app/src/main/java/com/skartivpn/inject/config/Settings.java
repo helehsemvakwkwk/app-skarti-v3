@@ -135,7 +135,7 @@ public class Settings implements SettingsConstants
 			return new String[]{};
 		}
 		java.util.ArrayList<String> out = new java.util.ArrayList<>();
-		for (String part : txt.split("[\n,;\s]+")) {
+		for (String part : txt.split("[\\n,;\\s]+")) {
 			String s = part.trim();
 			if (!s.isEmpty()) { out.add(s); }
 		}
