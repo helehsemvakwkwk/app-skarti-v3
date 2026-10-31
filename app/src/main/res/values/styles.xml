@@ -11,7 +11,7 @@
 		<item name="preferenceTheme">@style/AppPreference</item>
 		<item name="alertDialogTheme">@style/NethDialog</item>
 		<item name="android:fontFamily">@font/googlesans</item>
-	 <item name="android:windowBackground">@color/skarti_white</item>
+	 <item name="android:windowBackground">@color/neu_bg</item>
     <item name="android:windowShowWallpaper">true</item>
     <item name="android:statusBarColor">@color/skarti_purple_dark</item>
 		<!--<item name="android:textColorPrimary">@color/textColorPrimary</item>

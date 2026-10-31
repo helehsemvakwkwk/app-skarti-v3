@@ -111,9 +111,8 @@
 		    android:icon="@drawable/skarti_delete"
 	        android:layout="@layout/card_mid_widget"
 			android:key="hideLog"
-			android:summary="Enabled already"
+			android:summary="Sembunyikan daftar log di layar Log"
 			android:title="@string/title_hide_log"
-            android:enabled="false"
 		/>
 		
 	<androidx.preference.Preference

@@ -41,4 +41,10 @@
     <color name="skarti_purple_dark">#5B21B6</color>
     <color name="skarti_purple_light">#EDE9FE</color>
     <color name="skarti_white">#FFFFFF</color>
+    <color name="neu_bg">#E6EAF6</color>
+    <color name="neu_card">#FFFFFF</color>
+    <color name="neu_text">#1F2937</color>
+    <color name="neu_sub">#64748B</color>
+    <color name="neu_divider">#E2E8F0</color>
+    <color name="neu_hint">#94A3B8</color>
 </resources>
