@@ -80,16 +80,6 @@ public class Settings implements SettingsConstants
 		editor.commit();
 	}
 	
-	public String getModoNoturno() {
-		return mPrefs.getString(MODO_NOTURNO_KEY, "off");
-	}
-	
-	public void setModoNoturno(String str) {
-		SharedPreferences.Editor editor = mPrefs.edit();
-		editor.putString(MODO_NOTURNO_KEY, str);
-		editor.commit();
-	}
-	
 	public boolean getModoDebug() {
 		return mPrefs.getBoolean(MODO_DEBUG_KEY, false);
 	}
@@ -255,7 +245,6 @@ public class Settings implements SettingsConstants
 		editor.putString(DNSRESOLVER_KEY, "1.1.1.1");
 		editor.putBoolean(UDPFORWARD_KEY, true);
 		editor.putString(UDPRESOLVER_KEY, "127.0.0.1:7200");
-		editor.putString(MODO_NOTURNO_KEY, "off");
 		editor.putBoolean(AUTO_PINGER, true);
         editor.putString(PINGER, "clients3.google.com");
 		editor.putString(PINGER_KEY, "3");

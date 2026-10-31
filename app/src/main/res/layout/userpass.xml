@@ -39,7 +39,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/skt_user"
+                android:src="@drawable/ic_person_elegant"
                 android:layout_marginEnd="8dp" />
 
             <com.google.android.material.textfield.TextInputEditText
@@ -65,7 +65,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/skt_pass"
+                android:src="@drawable/ic_lock_elegant"
                 android:layout_marginEnd="8dp" />
 
             <com.google.android.material.textfield.TextInputEditText

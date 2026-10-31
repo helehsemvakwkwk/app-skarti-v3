@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nav_home" android:icon="@drawable/icon" android:title="Beranda" />
-    <item android:id="@+id/nav_payload" android:icon="@drawable/skt_config" android:title="Payload" />
-    <item android:id="@+id/nav_server" android:icon="@drawable/skt_server" android:title="Server" />
+    <item android:id="@+id/nav_home" android:icon="@drawable/ic_home_elegant" android:title="Beranda" />
+    <item android:id="@+id/nav_payload" android:icon="@drawable/ic_payload_elegant" android:title="Payload" />
+    <item android:id="@+id/nav_server" android:icon="@drawable/ic_server_elegant" android:title="Server" />
     <item android:id="@+id/nav_premium" android:icon="@drawable/skarti_premium" android:title="Premium" />
     <item android:id="@+id/nav_settings" android:icon="@drawable/ic_settings" android:title="Pengaturan" />
 </menu>

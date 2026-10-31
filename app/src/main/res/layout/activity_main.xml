@@ -59,8 +59,7 @@
 					android:layout_weight="1.0"/>
 					
 				<include
-				android:background="@drawable/skt5_gradient"
-                    layout="@layout/sptr0"
+				                    layout="@layout/sptr0"
 					android:layout_weight="1.0"/>
 					
 				<LinearLayout
@@ -127,7 +126,7 @@
                      android:layout_width="fill_parent">
                      
                             <ImageView
-					android:src="@drawable/skt_user"
+					android:src="@drawable/ic_person_elegant"
 					android:layout_marginTop="12dp"
 					android:layout_marginLeft="15dp"
 					android:layout_width="30dp"
@@ -175,7 +174,7 @@
                      android:layout_width="fill_parent">
                      
                                                  <ImageView
-					android:src="@drawable/skt_pass"
+					android:src="@drawable/ic_lock_elegant"
 					android:layout_marginTop="12dp"
 					android:layout_marginLeft="15dp"
 					android:layout_width="30dp"
@@ -248,7 +247,7 @@
                 <ImageView
                      android:layout_height="50dp"
                      android:layout_width="50dp"
-                     android:src="@drawable/skarti_tele"
+                     android:src="@drawable/ic_plane_elegant"
                      android:onClick="jointele" />
 
                 <ImageView
@@ -277,7 +276,7 @@
                      android:layout_width="wrap_content"
                      android:textAppearance="?android:textAppearanceSmall"
                      android:textSize="15.0sp"
-                     android:textColor="#ffecb3"
+                     android:textColor="#64748B"
                      android:layout_marginStart="0dip"
                      android:text="Update Time: " />
 
@@ -286,7 +285,7 @@
                      android:layout_width="wrap_content"
                      android:textAppearance="?android:textAppearanceSmall"
                      android:textSize="15.0sp"
-                     android:textColor="#ffecb3"
+                     android:textColor="#64748B"
                      android:layout_marginStart="0.0dip"
                      android:id="@+id/update"
                      android:text="2022-12-27 09:22 PM"
@@ -310,7 +309,7 @@
                 <ImageView
                      android:layout_height="50dp"
                      android:layout_width="50dp"
-                     android:src="@drawable/skarti_tele"
+                     android:src="@drawable/ic_plane_elegant"
                      android:onClick="jointele" />
 
                 <ImageView
@@ -440,10 +439,10 @@
              android:layout_height="wrap_content"
              android:layout_width="wrap_content"
              app:miniFabBackgroundTint="@android:color/white"
-             app:miniFabDrawableTint="@android:color/black"
+             app:miniFabDrawableTint="@color/skarti_purple"
              app:fabMenu="@menu/abc_menu"
              app:fabGravity="bottom_end"
-             app:miniFabTitleTextColor="@android:color/black"
+             app:miniFabTitleTextColor="@color/skarti_purple_dark"
              android:id="@+id/fabSpeedDial"
              android:layout_gravity="bottom|right|center" />
 

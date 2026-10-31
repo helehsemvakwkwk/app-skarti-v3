@@ -29,15 +29,6 @@
 	
 	
     <!-- modo noturno -->
-    <array name="pref_modoNoturno_option_labels">
-        <item>@string/disabled</item>
-	    <item>@string/actived</item>
-    </array>
-
-    <array name="pref_modoNoturno_option_values">
-        <item>off</item>
-        <item>on</item>
-    </array>
 	
 	
 	<!-- number threads -->

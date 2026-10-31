@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="skarti_white">#121212</color>
-    <color name="colorText">#E5E7EB</color>
-    <color name="textColorPrimary">#E5E7EB</color>
-    <color name="colorTextEnabled">#E5E7EB</color>
-    <color name="colorTextSecondary">#9CA3AF</color>
-    <color name="colorDivider">#374151</color>
+    <!-- Night mode removed: night resources are intentionally identical to
+         the light theme so no dark theme can ever be applied. -->
+    <color name="skarti_white">#FFFFFF</color>
+    <color name="colorText">#1F2937</color>
+    <color name="textColorPrimary">#1F2937</color>
+    <color name="colorTextEnabled">#1F2937</color>
+    <color name="colorTextSecondary">#64748B</color>
+    <color name="colorDivider">#E2E8F0</color>
 </resources>

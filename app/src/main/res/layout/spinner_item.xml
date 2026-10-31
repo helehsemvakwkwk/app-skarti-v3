@@ -10,10 +10,10 @@
     <com.google.android.material.card.MaterialCardView
          android:layout_height="wrap_content"
          android:layout_width="fill_parent"
-         app:strokeColor="#302f34"
+         app:strokeColor="#C4B5FD"
          android:width="3.0dip"
          app:cardUseCompatPadding="true"
-         app:cardBackgroundColor="#161417"
+         app:cardBackgroundColor="#FFFFFF"
          app:cardCornerRadius="5.0dip"
          android:id="@+id/mainCardz">
 
@@ -44,7 +44,7 @@
                          android:layout_height="wrap_content"
                          android:layout_width="wrap_content"
                          android:textSize="15.0sp"
-                         android:textColor="#6a686d"
+                         android:textColor="#1F2937"
                          android:id="@+id/itemNamea" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -52,7 +52,7 @@
                          android:layout_width="wrap_content"
                          android:textAppearance="?android:textAppearanceSmall"
                          android:textSize="10.0sp"
-                         android:textColor="#6a686d"
+                         android:textColor="#1F2937"
                          android:letterSpacing="0.1"
                          android:id="@+id/sinf" />
 

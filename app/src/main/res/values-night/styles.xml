@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Night mode removed: identical to the light AppTheme. -->
     <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
-        <item name="android:windowBackground">@color/skarti_white</item>
+        <item name="android:windowBackground">@color/neu_bg</item>
         <item name="android:statusBarColor">@color/skarti_purple_dark</item>
-        <item name="android:navigationBarColor">@color/skarti_white</item>
+        <item name="android:navigationBarColor">@color/neu_bg</item>
         <item name="android:textColor">@color/colorText</item>
         <item name="colorPrimary">@color/skarti_purple</item>
         <item name="colorAccent">@color/skarti_purple</item>

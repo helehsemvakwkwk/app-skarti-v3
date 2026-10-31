@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     style="@style/Widget.Material3.Chip.Filter"
     app:chipBackgroundColor="@color/chip_background_color"
-    app:chipStrokeColor="@color/sktgruy"
+    app:chipStrokeColor="@color/skarti_purple_light"
     app:chipStrokeWidth="1dp"
     app:chipCornerRadius="20dp"
     app:checkedIconVisible="true"

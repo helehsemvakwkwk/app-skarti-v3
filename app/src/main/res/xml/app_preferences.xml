@@ -42,7 +42,7 @@
 	
 
           <androidx.preference.ListPreference
-            android:icon="@drawable/darkmode"
+            android:icon="@drawable/ic_settings"
 	        android:layout="@layout/card_bot"
         	android:key="idioma"
         	android:summary="Fitur Ini Tidak Tersedia"
@@ -61,16 +61,6 @@
             android:summary="Kompresi data penting dalam berbagai aplikasi, seperti pengiriman file melalui internet, penyimpanan data, dan pemrosesan media."
             android:defaultValue="true"/>
 
-    		<androidx.preference.ListPreference
-        	android:key="modeNight"
-			android:defaultValue="off"
-			android:summary="Aktifkan tema gelap untuk aplikasi"
-			android:icon="@drawable/darkmode"
-	        android:layout="@layout/card_bot"
-        	android:entries="@array/pref_modoNoturno_option_labels"
-        	android:entryValues="@array/pref_modoNoturno_option_values"
-        	android:title="@string/title_mode_night"
-		/>
     
     		<androidx.preference.CheckBoxPreference
     		android:icon="@drawable/ic_delete_white_24dp"

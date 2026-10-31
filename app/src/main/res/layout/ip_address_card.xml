@@ -29,7 +29,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/skt_server"
+                android:src="@drawable/ic_server_elegant"
                 android:layout_marginRight="12dp"/>
 
             <LinearLayout

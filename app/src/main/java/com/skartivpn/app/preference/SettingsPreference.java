@@ -18,7 +18,6 @@ import com.skartivpn.app.SKTHttpApp;
 import com.skarti.premium.v2.R;
 import androidx.preference.ListPreference;
 import android.content.Context;
-import androidx.appcompat.app.AppCompatDelegate;
 import com.skartivpn.inject.logger.SkStatus;
 import com.skartivpn.inject.config.SettingsConstants;
 import com.skartivpn.inject.config.Settings;
@@ -57,7 +56,6 @@ public class SettingsPreference extends PreferenceFragmentCompat
 		AUTO_CLEAR_LOGS_KEY,
         SSH_COMPRESSION,
 		HIDE_LOG_KEY,
-		MODO_NOTURNO_KEY,
 	
 		IDIOMA_KEY
 	};
@@ -184,15 +182,6 @@ public class SettingsPreference extends PreferenceFragmentCompat
 					findPreference(DNSRESOLVER_KEY);
 				dnsResolverPreference.setEnabled(isDnsForward);
 			break;
-			case MODO_NOTURNO_KEY:
-				String night = (String) newValue;
-				if ("on".equals(night)) {
-					AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-				} else {
-					AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-				}
-				if (getActivity() != null) { getActivity().recreate(); }
-				break;
 			case IDIOMA_KEY:
             return false;
 		}

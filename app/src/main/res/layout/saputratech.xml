@@ -29,7 +29,7 @@
 			<ImageView
 				android:layout_width="80.0dip"
 				android:layout_height="80.0dip"
-				android:src="@drawable/kimak"/>
+				android:src="@drawable/ic_shield_elegant"/>
 
 			<View
 				android:background="#E2E8F0"
