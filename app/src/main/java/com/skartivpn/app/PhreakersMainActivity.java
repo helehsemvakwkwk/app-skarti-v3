@@ -65,13 +65,13 @@ import com.google.android.material.textview.MaterialTextView;
 import com.skartivpn.app.activities.BaseActivity;
 import com.skartivpn.app.activities.ConfigGeralActivity;
 import com.skartivpn.app.adapter.LogsAdapter;
+import com.skartivpn.app.custom.CustomProfile;
+import com.skartivpn.app.custom.CustomProfileStore;
 import com.skartivpn.app.util.AESCrypt;
 import com.skartivpn.app.util.ConfigUpdate;
 import com.skartivpn.app.util.ConfigUtil;
 import com.skartivpn.app.util.GoogleFeedbackUtils;
 import com.skartivpn.app.util.NethPogi;
-import com.skartivpn.app.util.PayloadModel;
-import com.skartivpn.app.util.ServerModel;
 import com.skartivpn.app.util.Utils;
 import com.skartivpn.app.util.VPNUtils;
 import com.skartivpn.app.util.IpAddressHelper;
@@ -133,8 +133,6 @@ import android.view.animation.RotateAnimation;
     public class PhreakersMainActivity extends BaseActivity implements SkStatus.StateListener {
     
     private MaterialTextView SaputraTechOperator;
-    private ArrayList<ServerModel> serverList;
-    private ArrayList<PayloadModel> payList;
     private MaterialTextView greetingText;
     private SharedPreferences prefs;
 
@@ -364,7 +362,9 @@ import android.view.animation.RotateAnimation;
         config = new ConfigUtil(this);
 	    window = PhreakersMainActivity.this.getWindow();
         MaterialTextView configv = (MaterialTextView) findViewById(R.id.configv);
-		configv.setText("" + config.getVersion());
+		CustomProfileStore.migrateIfNeeded(this, mConfig.getPrefsPrivate());
+		CustomProfile activeProfileForStats = CustomProfileStore.getActive(this);
+		configv.setText(activeProfileForStats == null ? "-" : activeProfileForStats.modeLabel());
 		MaterialTextView updatet = (MaterialTextView) findViewById(R.id.update);
 		updatet.setText(!mConfig.getPrefsPrivate().getString("UpdateTime", "").equals("") ? mConfig.getPrefsPrivate().getString("UpdateTime","") : "----/--/--");
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -393,7 +393,7 @@ case R.id.profile:
 							break; 
 
 						case R.id.updConf:
-                        updateConfig(false);
+                        openCustomList();
                         break;
 
 						case R.id.miSettings:
@@ -408,7 +408,7 @@ case R.id.profile:
                break;
 
 					           					           case R.id.payloadSel:
-							openPayloadSelection();
+							openCustomEditor();
 							break;
 					           case R.id.logMenu:
 							if (vp != null) vp.setCurrentItem(1);
@@ -465,7 +465,6 @@ case R.id.speedtest:
 
 
 			});
-        updateConfig(true);
         greetingText = findViewById(R.id.greetingText);
         updateGreeting(greetingText);
 		status = (MaterialTextView) findViewById(R.id.monsour_stats);
@@ -533,101 +532,28 @@ case R.id.speedtest:
         statsTimer = new Timer();
         statsTimer.schedule(new TimerTask(){@Override public void run() {new Handler(Looper.getMainLooper()).post(new Runnable() {@Override public void run() {
         getData();}});}}, 0,1000);
-        serverList = new ArrayList<ServerModel>();
-        try {
-            JSONArray array = config.getServersArray();
-            if (array == null) { throw new JSONException("Servers config is null"); }
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonObject = array.getJSONObject(i);
-                SharedPreferences prefs = mConfig.getPrefsPrivate();
-                SharedPreferences.Editor edit = prefs.edit();
-                String flag = jsonObject.getString("FLAG");
-                String sname = jsonObject.getString("Name");
-				String sHost = jsonObject.getString("ServerIP");
-				String sPort = jsonObject.getString("ServerPort");
-                String sinfo = jsonObject.getString("sInfo");
-                ServerModel model = new ServerModel();
-                model.setServerName(sname);
-                model.setServerInfo(sinfo);
-				model.setServerHost(sHost);
-				model.setServerPort(sPort);
-                model.setServerflag(flag);
-                serverList.add(model);
-                edit.apply();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            VPNUtils.NethToast(this, R.drawable.skarti_wrong, "No Server & Config Detected.");
+        // Custom profiles replace the old encrypted server/payload config.
+        // Stats: Profil = jumlah profil tersimpan, Port = port profil aktif.
+        refreshCustomStats();
+        LinearLayout serverCardClickable = (LinearLayout) findViewById(R.id.serverCardClickable);
+        if (serverCardClickable != null) {
+            serverCardClickable.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openCustomList();
+                }
+            });
         }
-        payList = new ArrayList<PayloadModel>();
-        try {
-            JSONArray array = config.getNetworksArray();
-            if (array == null) { throw new JSONException("Networks config is null"); }
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonObject = array.getJSONObject(i);
-                SharedPreferences prefs = mConfig.getPrefsPrivate();
-                SharedPreferences.Editor edit = prefs.edit();
-                String sname = jsonObject.getString("Name");
-                String sinfo = jsonObject.getString("pInfo");
-                PayloadModel model = new PayloadModel();
-                model.setServerName(sname);
-                model.setServerInfo(sinfo);
-                payList.add(model);
-                edit.apply();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            VPNUtils.NethToast(this, R.drawable.skarti_wrong, "No Server & Config Detected.");
+        LinearLayout payloadCardClickable = (LinearLayout) findViewById(R.id.payloadCardClickable);
+        if (payloadCardClickable != null) {
+            payloadCardClickable.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openCustomEditor();
+                }
+            });
         }
-        if (config.getJSONConfig() == null){
-			VPNUtils.NethToast(this, R.drawable.skarti_wrong, "No Server & Config Detected.");
-		}
-		try {
-			JSONArray jsonArray = config.getServersArray();
-			for (int i = 0; i < jsonArray.length(); i++) {
-				MaterialTextView serverCount = (MaterialTextView) findViewById(R.id.serverCount);
-				serverCount.setText("" + jsonArray.length());
-			}
-		} catch (Exception err){
-			err.printStackTrace();
-			VPNUtils.NethToast(PhreakersMainActivity.this, R.drawable.skarti_wrong, err.getMessage());
-		}
-		
-		// Setup click listener for Server Card to navigate to ServerSelectionActivity
-		LinearLayout serverCardClickable = (LinearLayout) findViewById(R.id.serverCardClickable);
-		if (serverCardClickable != null) {
-			serverCardClickable.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent(PhreakersMainActivity.this, com.skartivpn.app.activities.ServerSelectionActivity.class);
-					// Pass current selected server if needed
-					int selectedServerPos = mConfig.getPrefsPrivate().getInt("Selected1", 0);
-					if (serverList != null && selectedServerPos < serverList.size()) {
-						intent.putExtra("SELECTED_SERVER_ID", String.valueOf(selectedServerPos));
-					}
-					startActivityForResult(intent, 1001);
-					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-				}
-			});
-		}
-		LinearLayout payloadCardClickable = (LinearLayout) findViewById(R.id.payloadCardClickable);
-		if (payloadCardClickable != null) {
-			payloadCardClickable.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) { openPayloadSelection(); }
-			});
-		}
-		try {
-			JSONArray jsonArray2 = config.getNetworksArray();
-			for (int i = 0; i < jsonArray2.length(); i++) {
-				MaterialTextView payCount = (MaterialTextView) findViewById(R.id.payCount);
-				payCount.setText("" + jsonArray2.length());
-			}
-		} catch (Exception err){
-			err.printStackTrace();
-			VPNUtils.NethToast(PhreakersMainActivity.this, R.drawable.skarti_wrong, err.getMessage());
-		}
-	    vp = (ViewPager)findViewById(R.id.viewpager);
+    vp = (ViewPager)findViewById(R.id.viewpager);
         tabs = (TabLayout)findViewById(R.id.tablayout);
         vp.setAdapter(new NethPH(Arrays.asList(new String[]{"HOME", "LOGS"})));
         vp.setOffscreenPageLimit(2);
@@ -673,16 +599,8 @@ case R.id.speedtest:
                         case R.id.nav_home:
                             if (vp != null) vp.setCurrentItem(0);
                             return true;
-                        case R.id.nav_payload:
-                            openPayloadSelection();
-                            return true;
-                        case R.id.nav_server:
-                            Intent serverIntent = new Intent(PhreakersMainActivity.this, com.skartivpn.app.activities.ServerSelectionActivity.class);
-                            int selectedServerPos = mConfig.getPrefsPrivate().getInt("Selected1", 0);
-                            if (serverList != null && selectedServerPos < serverList.size()) {
-                                serverIntent.putExtra("SELECTED_SERVER_ID", String.valueOf(selectedServerPos));
-                            }
-                            startActivityForResult(serverIntent, 1001);
+                        case R.id.nav_custom:
+                            openCustomList();
                             return true;
                         case R.id.nav_premium:
                             startActivity(new Intent(PhreakersMainActivity.this, SktPremium.class));
@@ -813,15 +731,73 @@ case R.id.speedtest:
 			e.printStackTrace();
 		}
 	}
-	private void openPayloadSelection() {
-		Intent payloadIntent = new Intent(PhreakersMainActivity.this, com.skartivpn.app.activities.PayloadSelectionActivity.class);
-		int selectedPayloadPos = mConfig.getPrefsPrivate().getInt("Selected2", 0);
-		if (payList != null && selectedPayloadPos < payList.size()) {
-			payloadIntent.putExtra("SELECTED_PAYLOAD_ID", String.valueOf(selectedPayloadPos));
-		}
-		startActivityForResult(payloadIntent, 1002);
+	private void openCustomList() {
+		Intent intent = new Intent(PhreakersMainActivity.this, com.skartivpn.app.custom.CustomProfileListActivity.class);
+		startActivity(intent);
 	}
-
+	private void openCustomEditor() {
+		Intent intent = new Intent(PhreakersMainActivity.this, com.skartivpn.app.custom.CustomProfileEditorActivity.class);
+		CustomProfile active = CustomProfileStore.getActive(this);
+		if (active != null) {
+			intent.putExtra("PROFILE_ID", active.id);
+		}
+		startActivity(intent);
+	}
+	private void refreshCustomStats() {
+		try {
+			List<CustomProfile> profiles = CustomProfileStore.load(this);
+			CustomProfile active = CustomProfileStore.getActive(this);
+			MaterialTextView serverCount = (MaterialTextView) findViewById(R.id.serverCount);
+			if (serverCount != null) { serverCount.setText("" + profiles.size()); }
+			MaterialTextView payCount = (MaterialTextView) findViewById(R.id.payCount);
+			if (payCount != null) { payCount.setText(active == null ? "-" : active.effectivePort()); }
+			MaterialTextView configv = (MaterialTextView) findViewById(R.id.configv);
+			if (configv != null) { configv.setText(active == null ? "-" : active.modeLabel()); }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	// Writes a custom profile into the same private preferences the old
+	// _pos_() filled from the encrypted config, so LaunchVpn and the tunnel
+	// engine work exactly as before. [HOST] in a payload is replaced by the
+	// profile host, matching the old behaviour.
+	private void applyCustomProfile(CustomProfile profile) {
+		SharedPreferences prefs = mConfig.getPrefsPrivate();
+		SharedPreferences.Editor edit = prefs.edit();
+		edit.putBoolean(Settings.PROXY_USAR_DEFAULT_PAYLOAD, false);
+		edit.putString("ServerName", profile.name);
+		if (profile.needsSlowDns()) {
+			edit.putString(Settings.SERVIDOR_KEY, "127.0.0.1");
+			edit.putString(Settings.SERVIDOR_PORTA_KEY, "2222");
+			edit.putString(Settings.NAMESERVER_KEY, profile.host);
+			edit.putString(Settings.CHAVE_KEY, profile.slowDnsKey);
+			edit.putString(Settings.DNS_KEY, profile.dnsKey);
+			edit.putInt(Settings.TUNNELTYPE_KEY, Settings.bTUNNEL_TYPE_SLOWDNS);
+		} else {
+			edit.putString(Settings.SERVIDOR_KEY, profile.host);
+			edit.putString(Settings.SERVIDOR_PORTA_KEY, profile.effectivePort());
+			edit.putInt(Settings.TUNNELTYPE_KEY, profile.mode);
+			if (profile.needsProxy()) {
+				edit.putString(Settings.PROXY_IP_KEY, profile.proxyHost);
+				edit.putString(Settings.PROXY_PORTA_KEY, profile.proxyPort);
+			} else {
+				edit.putString(Settings.PROXY_IP_KEY, "");
+				edit.putString(Settings.PROXY_PORTA_KEY, "");
+			}
+			if (profile.needsSni()) {
+				edit.putString(Settings.CUSTOM_SNI, profile.sni);
+			} else {
+				edit.putString(Settings.CUSTOM_SNI, "");
+			}
+			if (profile.needsPayload()) {
+				String payload = profile.payload == null ? "" : profile.payload;
+				edit.putString(Settings.CUSTOM_PAYLOAD_KEY, payload.replace("[HOST]", profile.host));
+			} else {
+				edit.putString(Settings.CUSTOM_PAYLOAD_KEY, "");
+			}
+		}
+		edit.apply();
+	}
 	public void doRestart() {
         finish();
         startActivity(new Intent(this,LauncherActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION));
@@ -834,26 +810,17 @@ case R.id.speedtest:
 		else {
 			// oculta teclado se vísivel, tá com bug, tela verde
 			//Utils.hideKeyboard(activity);
-            int savedServerPos = mConfig.getPrefsPrivate().getInt("Selected1", 0);
-            if (serverList == null || serverList.isEmpty() || savedServerPos < 0 || savedServerPos >= serverList.size()) {
+            CustomProfile activeProfile = CustomProfileStore.getActive(this);
+            if (activeProfile == null) {
                 SkStatus.updateStateString("USER_VPN_PASSWORD_CANCELLED", "", R.string.state_user_vpn_password_cancelled,
                                            ConnectionStatus.LEVEL_NOTCONNECTED);
-                Toast.makeText(this, R.string.error_empty_settings, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Buat profil Custom dulu.", Toast.LENGTH_SHORT).show();
+                openCustomList();
                 return;
-			}
-
-			/*if (config.getPrefsPrivate()
-				.getBoolean(Settings.CONFIG_INPUT_PASSWORD_KEY, false)) {
-				if (inputPwUser.getText().toString().isEmpty() || 
-					inputPwPass.getText().toString().isEmpty()) {
-					Toast.makeText(this, R.string.error_userpass_empty, Toast.LENGTH_SHORT)
-						.show();
-					return;
-				}
-			}*/
+            }
             if (mConfig.getAutoClearLog() && mLogAdapter != null) { mLogAdapter.clearLog(); }
-            _pos_(mConfig.getPrefsPrivate().getInt("Selected1", 0), mConfig.getPrefsPrivate().getInt("Selected2", 0));
-			Intent intent = new Intent(activity, LaunchVpn.class);
+            applyCustomProfile(activeProfile);
+Intent intent = new Intent(activity, LaunchVpn.class);
             intent.setAction(Intent.ACTION_MAIN);
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			activity.startActivity(intent);
@@ -861,130 +828,6 @@ case R.id.speedtest:
 	}
     String getName(String str){
       return mConfig.getPrivString(str);  
-    }
-    private synchronized void _pos_(int pos, int pos1) {
-        try {
-            SharedPreferences prefs = mConfig.getPrefsPrivate();
-            SharedPreferences.Editor edit = prefs.edit();
-            prefs.getBoolean(Settings.CUSTOM_PAYLOAD_KEY, true);
-            edit.putBoolean(Settings.PROXY_USAR_DEFAULT_PAYLOAD, !true);
-			String ssh_name = config.getServersArray().getJSONObject(pos).getString("Name");
-            String ssh_server = config.getServersArray().getJSONObject(pos).getString("ServerIP");
-            String remote_proxy = config.getServersArray().getJSONObject(pos).getString("ProxyIP");
-            String proxy_port = config.getServersArray().getJSONObject(pos).getString("ProxyPort");
-            //String user = config.getServersArray().getJSONObject(pos).getString("ServerUser");
-           // String pass = config.getServersArray().getJSONObject(pos).getString("ServerPass");
-            String chvKey = config.getServersArray().getJSONObject(pos).getString("SlowDnskey");
-            String nvKey = config.getServersArray().getJSONObject(pos).getString("SlowDnshost");
-            String cfz = config.getServersArray().getJSONObject(pos).getString("CloudfrontIP");
-            String proxycum = config.getNetworksArray().getJSONObject(pos1).getString("CustomProxy");
-            String proxyporn = config.getNetworksArray().getJSONObject(pos1).getString("CustomProxyPort");
-            boolean CustomProxyBold = config.getNetworksArray().getJSONObject(pos1).getBoolean("isCustom");
-            boolean directModeType = config.getNetworksArray().getJSONObject(pos1).getBoolean("isSSL");
-            boolean sshssltype =  config.getNetworksArray().getJSONObject(pos1).getBoolean("isSslPayRp");
-            boolean slowdnstype = config.getNetworksArray().getJSONObject(pos1).getBoolean("SlowDns");
-            edit.putString(Settings.SERVIDOR_KEY, ssh_server);
-			edit.putString("ServerName", ssh_name);
-            if (CustomProxyBold == true){
-                edit.putString(Settings.PROXY_IP_KEY, VPNUtils.IsangTangangNagDecrypt(proxycum).replace("[HOST]", config.getServersArray().getJSONObject(pos).getString("ServerIP")));
-                edit.putString(Settings.PROXY_PORTA_KEY, proxyporn);          
-            }
-            else {
-                edit.putString(Settings.PROXY_IP_KEY, remote_proxy);
-                edit.putString(Settings.PROXY_PORTA_KEY, proxy_port);
-            }
-            if (directModeType) {
-                String ssl_port = config.getServersArray().getJSONObject(pos).getString("SSLPort");
-                edit.putString(Settings.SERVIDOR_PORTA_KEY, ssl_port);
-            } else if (sshssltype) {
-                String ssl_port1 = config.getServersArray().getJSONObject(pos).getString("SSLPort");
-                edit.putString(Settings.SERVIDOR_PORTA_KEY, ssl_port1);
-            } else if (slowdnstype) {
-                edit.putString(Settings.SERVIDOR_KEY, "127.0.0.1");
-                edit.putString(Settings.SERVIDOR_PORTA_KEY, "2222");
-            } else {
-                String ssh_port = config.getServersArray().getJSONObject(pos).getString("ServerPort");
-                edit.putString(Settings.SERVIDOR_PORTA_KEY, ssh_port);
-            }
-            edit.apply();
-            //edit.putString(Settings.USUARIO_KEY, VPNUtils.IsangTangangNagDecrypt(user));
-          //  edit.putString(Settings.SENHA_KEY, VPNUtils.IsangTangangNagDecrypt(pass));
-            if (cfz.isEmpty()){
-            } else {
-                edit.putString("CloudfrontIP", cfz);
-            }
-            if (chvKey.isEmpty()){
-            } else {
-                edit.putString(Settings.CHAVE_KEY, chvKey);
-            }
-            if (nvKey.isEmpty()){
-            } else {
-                edit.putString(Settings.NAMESERVER_KEY, nvKey);
-            }
-            edit.apply();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Server Error: " + e.getMessage(), 0).show();
-            //SocksHttpApp.toast(getApplicationContext(), R.color.red, e.getMessage());
-        }
-
-        try {
-            SharedPreferences prefs = mConfig.getPrefsPrivate();
-            SharedPreferences.Editor edit = prefs.edit();
-            prefs.getBoolean(Settings.CUSTOM_PAYLOAD_KEY, true);
-            edit.putBoolean(Settings.PROXY_USAR_DEFAULT_PAYLOAD, !true);
-            boolean directModeType = config.getNetworksArray().getJSONObject(pos1).getBoolean("isSSL");
-            boolean sshssltype =  config.getNetworksArray().getJSONObject(pos1).getBoolean("isSslPayRp");
-            boolean slowdnstype = config.getNetworksArray().getJSONObject(pos1).getBoolean("SlowDns");
-			boolean FuckingCloudfront = config.getNetworksArray().getJSONObject(pos1).getBoolean("isCf");
-            if (directModeType) {
-                prefs.edit().putInt(Settings.TUNNELTYPE_KEY, Settings.bTUNNEL_TYPE_SSL_TLS).apply();
-                String sni = config.getNetworksArray().getJSONObject(pos1).getString("SNI");
-                if (FuckingCloudfront){
-                    edit.putString(Settings.CUSTOM_SNI, prefs.getString("CloudfrontIP", ""));
-                } else {
-                    edit.putString(Settings.CUSTOM_SNI, sni);
-                }
-                edit.apply();
-            } else if (sshssltype) {
-                String payload = VPNUtils.IsangTangangNagDecrypt(config.getNetworksArray().getJSONObject(pos1).getString("Payload"));
-                prefs.edit().putInt(Settings.TUNNELTYPE_KEY, Settings.bTUNNEL_TYPE_PAY_SSL).apply();
-                String snissl = config.getNetworksArray().getJSONObject(pos1).getString("SNI");
-                if (FuckingCloudfront){
-                    edit.putString(Settings.CUSTOM_SNI, prefs.getString("CloudfrontIP", ""));
-                } else {
-                    edit.putString(Settings.CUSTOM_SNI, snissl);
-                }
-                if (FuckingCloudfront){
-                    edit.putString(Settings.CUSTOM_PAYLOAD_KEY, VPNUtils.cloudfront_payload(prefs));
-                } else {
-                    edit.putString(Settings.CUSTOM_PAYLOAD_KEY, payload.replace("[HOST]", getName(Settings.SERVIDOR_KEY)));
-                }
-                edit.apply();
-            }else if (slowdnstype){
-                prefs.edit().putInt(Settings.TUNNELTYPE_KEY, Settings.bTUNNEL_TYPE_SLOWDNS).apply();
-                String dnsKey = config.getNetworksArray().getJSONObject(pos1).getString("dnsKey");
-				if (Settings.CUSTOM_PAYLOAD_KEY == null){
-					edit.putString(Settings.CUSTOM_PAYLOAD_KEY, "[]").apply();
-				}
-				edit.putString(Settings.DNS_KEY, dnsKey);
-                edit.apply();
-            } else {
-                String payload = VPNUtils.IsangTangangNagDecrypt(config.getNetworksArray().getJSONObject(pos1).getString("Payload"));
-                prefs.edit().putInt(Settings.TUNNELTYPE_KEY, Settings.bTUNNEL_TYPE_SSH_PROXY).apply();
-                if (FuckingCloudfront){
-                    edit.putString(Settings.CUSTOM_PAYLOAD_KEY, VPNUtils.cloudfront_payload(prefs));
-                } else {
-                    edit.putString(Settings.CUSTOM_PAYLOAD_KEY, payload.replace("[HOST]", getName(Settings.SERVIDOR_KEY)));
-                }
-                edit.apply();
-            }
-            edit.apply();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Payload Error: " + e.getMessage(), 0).show();
-            //SocksHttpApp.toast(getApplicationContext(), R.color.red, e.getMessage());
-        }
     }
     private void updateConfig(final boolean isOnCreate) {
         new ConfigUpdate(this, new ConfigUpdate.OnUpdateListener() {
@@ -1411,52 +1254,7 @@ public void jointele (View view){
                 }
             }
         }
-        // Handle server selection result
-        else if (requestCode == 1001) {
-            if (resultCode == RESULT_OK && data != null) {
-                String selectedServerId = data.getStringExtra("SELECTED_SERVER_ID");
-                String selectedServerName = data.getStringExtra("SELECTED_SERVER_NAME");
-
-                if (selectedServerId != null) {
-                    try {
-                        int serverPosition = Integer.parseInt(selectedServerId);
-                        // Update spinner selection (position in the REAL config list, not a sample id)
-                        if (serverPosition >= 0 && serverPosition < serverList.size()) {
-                            mConfig.getPrefsPrivate().edit().putInt("Selected1", serverPosition).apply();
-                            VPNUtils.NethToast(this, R.drawable.check, "Server changed to: " + selectedServerName);
-                        } else {
-                            VPNUtils.NethToast(this, R.drawable.skarti_wrong, "Server tidak ditemukan di config.");
-                        }
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-        else if (requestCode == 1002) {
-            if (resultCode == RESULT_OK && data != null) {
-                String selectedPayloadId = data.getStringExtra("SELECTED_PAYLOAD_ID");
-                String selectedPayloadName = data.getStringExtra("SELECTED_PAYLOAD_NAME");
-                if (selectedPayloadId != null) {
-                    try {
-                        int payloadPosition = Integer.parseInt(selectedPayloadId);
-                        if (payloadPosition >= 0 && payloadPosition < payList.size()) {
-                            mConfig.getPrefsPrivate().edit().putInt("Selected2", payloadPosition).apply();
-                            VPNUtils.NethToast(this, R.drawable.check, "Payload changed to: " + selectedPayloadName);
-                        } else {
-                            VPNUtils.NethToast(this, R.drawable.skarti_wrong, "Payload tidak ditemukan di config.");
-                        }
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
     }
-    
-    
-
-
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -1559,6 +1357,7 @@ public void jointele (View view){
 public void onResume() {
     super.onResume();
     SkStatus.addStateListener(this);
+    refreshCustomStats();
    // mHandler.post(greetingRunnable); // [NEW] Start greeting updates
 }
 
