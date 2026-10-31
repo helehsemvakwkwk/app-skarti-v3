@@ -33,9 +33,9 @@
                  	<com.google.android.material.textview.MaterialTextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:textColor="#FFFFFF"
+					android:textColor="#1F2937"
 					android:textStyle="bold"
-					android:shadowColor="#FF000000"
+					android:shadowColor="@android:color/transparent"
 					android:shadowDy="5.0"
 					android:shadowRadius="1.5"
 					android:textAppearance="?android:attr/textAppearanceLarge"
@@ -69,7 +69,7 @@
 		android:layout_marginRight="6dp"
 		android:layout_marginTop="10dp"
 		android:padding="10dp"
-		android:background="@drawable/skt2_gradient"
+		android:background="@drawable/neu_card"
 		android:layout_height="wrap_content"
 		app:cardCornerRadius="2.0dp">
 		
@@ -94,9 +94,9 @@
 			<com.google.android.material.textview.MaterialTextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:textColor="#FFFFFF"
+					android:textColor="#1F2937"
 					android:textStyle="bold"
-					android:shadowColor="#FF000000"
+					android:shadowColor="@android:color/transparent"
 					android:shadowDy="5.0"
 					android:shadowRadius="1.5"
 					android:textAppearance="?android:attr/textAppearanceLarge"
@@ -121,7 +121,7 @@
                     android:id="@+id/h_u_l"
                      android:layout_height="60dp"
                      android:gravity="center|left"
-                     android:background="@drawable/skt3_gradient"
+                     android:background="@drawable/neu_card"
                      android:layout_marginLeft="15dp"
 	              	 android:layout_marginRight="15dp"
                      android:layout_width="fill_parent">
@@ -139,7 +139,7 @@
                      android:layout_marginLeft="50dp"
                      android:layout_marginTop="0dp"
 	              	 android:layout_marginRight="5dp"
-	              	 android:background="@drawable/skt3_gradient"
+	              	 android:background="@drawable/neu_card"
                      android:layout_width="fill_parent">
                      
         <com.google.android.material.textfield.TextInputEditText
@@ -156,8 +156,8 @@
             android:nextFocusDown="@+id/HarliePasss"
             android:paddingLeft="5dp"
             android:singleLine="true"
-            android:textColor="#1b5e20"
-            android:textColorHint="#98989a"
+            android:textColor="#1F2937"
+            android:textColorHint="#94A3B8"
             android:textSize="15sp" />
 </RelativeLayout>
     </RelativeLayout>
@@ -170,7 +170,7 @@
                      android:layout_marginLeft="15dp"
                      android:gravity="center|left"
                      android:layout_marginTop="5dp"
-                     android:background="@drawable/skt3_gradient"
+                     android:background="@drawable/neu_card"
 	              	 android:layout_marginRight="15dp"
                      android:layout_width="fill_parent">
                      
@@ -187,7 +187,7 @@
                      android:layout_marginLeft="50dp"
                      android:layout_marginTop="0dp"
 	              	 android:layout_marginRight="5dp"
-	              	 android:background="@drawable/skt3_gradient"
+	              	 android:background="@drawable/neu_card"
                      android:layout_width="fill_parent">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -202,8 +202,8 @@
                 android:inputType="textPassword"
                 android:paddingLeft="5dp"
                 android:singleLine="true"
-                android:textColor="#b71c1c"
-                android:textColorHint="#98989a"
+                android:textColor="#1F2937"
+                android:textColorHint="#94A3B8"
                 android:textSize="15sp" />
 </RelativeLayout>
                      </RelativeLayout>

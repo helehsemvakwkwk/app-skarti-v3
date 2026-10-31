@@ -161,6 +161,8 @@ import android.view.animation.RotateAnimation;
     private LogsAdapter mLogAdapter;
     private BottomNavigationView bottomNav;
     private java.util.Timer statsTimer;
+    private String lastUpText = null;
+    private String lastDownText = null;
     private ConfigUtil config;
     private Button buttonnethie;
     private ViewPager vp;
@@ -408,6 +410,9 @@ case R.id.profile:
 					           					           case R.id.payloadSel:
 							openPayloadSelection();
 							break;
+					           case R.id.logMenu:
+							if (vp != null) vp.setCurrentItem(1);
+							break;
 case R.id.speedtest:
 							startActivity(new Intent(PhreakersMainActivity.this, SktSpeedTest.class));
 							break;
@@ -436,7 +441,9 @@ case R.id.speedtest:
         mLogAdapter = new LogsAdapter(layoutManager,this);
 		deleteLogs = (FloatingActionButton)findViewById(R.id.clearLog);
 		logList = (RecyclerView) findViewById(R.id.recyclerDrawerView);
-		// Hide-log setting: previously the toggle was forced off and never read.
+		// Hide-log setting: reset the old true-by-default value once, so
+		// existing installs get their logs back without clearing app data.
+		mConfig.migrateHideLogDefault();
 		if (mConfig.getHideLog()) {
 			logList.setVisibility(View.GONE);
 			if (deleteLogs != null) { deleteLogs.setVisibility(View.GONE); }
@@ -666,8 +673,8 @@ case R.id.speedtest:
                         case R.id.nav_home:
                             if (vp != null) vp.setCurrentItem(0);
                             return true;
-                        case R.id.nav_logs:
-                            if (vp != null) vp.setCurrentItem(1);
+                        case R.id.nav_payload:
+                            openPayloadSelection();
                             return true;
                         case R.id.nav_server:
                             Intent serverIntent = new Intent(PhreakersMainActivity.this, com.skartivpn.app.activities.ServerSelectionActivity.class);
@@ -769,11 +776,18 @@ case R.id.speedtest:
             editor.apply();
         }
         if(isRunning){
-            bytesOut.setText(render_bandwidth(myData.getLong("UP_DATA", 0)));
-            bytesIn.setText(render_bandwidth(myData.getLong("DOWN_DATA", 0)));
+            // Only touch the TextViews when the rendered value actually
+            // changed: setText every second forced a layout pass even when
+            // the displayed bandwidth was identical, which showed up as lag.
+            String upText = render_bandwidth(myData.getLong("UP_DATA", 0));
+            String downText = render_bandwidth(myData.getLong("DOWN_DATA", 0));
+            if (!upText.equals(lastUpText)) { bytesOut.setText(upText); lastUpText = upText; }
+            if (!downText.equals(lastDownText)) { bytesIn.setText(downText); lastDownText = downText; }
         }else{
-            myData.edit().putLong("UP_DATA", 0).apply();
-            myData.edit().putLong("DOWN_DATA", 0).apply();
+            SharedPreferences.Editor resetEditor = myData.edit();
+            resetEditor.putLong("UP_DATA", 0);
+            resetEditor.putLong("DOWN_DATA", 0);
+            resetEditor.apply();
         }
     }
 	

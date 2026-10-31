@@ -109,7 +109,19 @@ public class Settings implements SettingsConstants
 	}
 	
 	public boolean getHideLog() {
-		return mPrefs.getBoolean(HIDE_LOG_KEY, true);
+		return mPrefs.getBoolean(HIDE_LOG_KEY, false);
+	}
+	
+	// One-time migration: hideLog used to default to true (and its toggle was
+	// forced off), so existing installs had logs hidden without ever choosing
+	// it. Reset it once to false; later user choices are left alone.
+	public void migrateHideLogDefault() {
+		if (!mPrefs.getBoolean("hideLogMigrated", false)) {
+			SharedPreferences.Editor editor = mPrefs.edit();
+			editor.putBoolean(HIDE_LOG_KEY, false);
+			editor.putBoolean("hideLogMigrated", true);
+			editor.apply();
+		}
 	}
     
     
@@ -250,7 +262,7 @@ public class Settings implements SettingsConstants
 		editor.putString(MAXIMO_THREADS_KEY, "8th");
         editor.putBoolean(SSH_COMPRESSION, true);
 		editor.remove(MODO_DEBUG_KEY);
-		editor.putBoolean(HIDE_LOG_KEY, true);
+		editor.putBoolean(HIDE_LOG_KEY, false);
 		editor.remove(AUTO_CLEAR_LOGS_KEY);
 		editor.remove(FILTER_APPS);
 		editor.remove(FILTER_BYPASS_MODE);

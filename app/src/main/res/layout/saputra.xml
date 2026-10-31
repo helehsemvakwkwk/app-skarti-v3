@@ -20,7 +20,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:padding="7dp"
-				android:background="@drawable/skt4_gradient">
+				android:background="@drawable/neu_card">
 
 				<ImageView
 					android:src="@drawable/et"
@@ -31,7 +31,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Join Telegram Group"
-					android:textColor="#98989a"
+					android:textColor="#1F2937"
 					android:textSize="15sp"
 					android:layout_gravity="center_vertical"
 					android:layout_marginLeft="11dp"/>

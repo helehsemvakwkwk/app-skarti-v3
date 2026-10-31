@@ -22,7 +22,7 @@
                  android:layout_height="55dp"
                  android:layout_width="match_parent"
                  android:gravity="center"
-                 android:background="@drawable/skt5_gradient"
+                 android:background="@drawable/neu_start"
                  android:textSize="17sp"
                  android:layout_marginLeft="7dp"
                  android:textColor="@color/white"

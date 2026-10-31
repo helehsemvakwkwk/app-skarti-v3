@@ -34,4 +34,5 @@
     <item android:id="@+id/clearz" android:icon="@drawable/skarti_delete" android:title="Clear Data Application" />
     <item android:id="@+id/Bell" android:icon="@drawable/bell" android:title="Release Notes" />
     <item android:id="@+id/payloadSel" android:icon="@drawable/skarti_file" android:title="Pilih Payload" />
+    <item android:id="@+id/logMenu" android:icon="@drawable/ic_event_note_black_24dp" android:title="Log" />
 </menu>
