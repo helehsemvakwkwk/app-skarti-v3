@@ -6,7 +6,7 @@
      android:gravity="start|center"
      android:textSize="10.0sp"
      android:textAllCaps="true"
-     android:textColor="#ffecb3"
+     android:textColor="#5B21B6"
      android:layout_marginTop="3.0dip"
      android:layout_marginStart="20.0dip"
      android:letterSpacing="0.1"

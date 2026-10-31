@@ -23,7 +23,7 @@
 				android:background="@drawable/neu_card">
 
 				<ImageView
-					android:src="@drawable/et"
+					android:src="@drawable/ic_plane_elegant"
 					android:layout_width="30dp"
 					android:layout_height="26dp"/>
 

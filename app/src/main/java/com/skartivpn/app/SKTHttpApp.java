@@ -1,7 +1,6 @@
 package com.skartivpn.app;
 
 import android.app.Application;
-import androidx.appcompat.app.AppCompatDelegate;
 import com.skartivpn.app.preference.SettingsPreference;
 import com.skartivpn.inject.util.SkProtect;
 import com.skartivpn.inject.logger.SkStatus;
@@ -43,8 +42,6 @@ public class SKTHttpApp extends Application implements ActivityLifecycleCallback
 	public void onCreate()
 	{
 		super.onCreate();
-		String night = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this).getString("modeNight", "off");
-		AppCompatDelegate.setDefaultNightMode("on".equals(night) ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
 		mApp = this;
 		// captura dados para análise
 		/*new FlurryAgent.Builder()

@@ -60,13 +60,13 @@
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
                 android:layout_width="match_parent"
-                app:tabIndicatorColor="#ffecb3"
+                app:tabIndicatorColor="#7C3AED"
                 app:tabGravity="fill"
                 android:visibility="gone"
                 app:tabIndicatorHeight="3.0dip"
                 app:tabMode="fixed"
-                app:tabSelectedTextColor="#1d88e5"
-                app:tabTextColor="#ffffff"
+                app:tabSelectedTextColor="#7C3AED"
+                app:tabTextColor="#64748B"
                 android:id="@+id/tablayout"/>
             
            </com.google.android.material.appbar.AppBarLayout>

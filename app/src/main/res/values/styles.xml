@@ -75,7 +75,7 @@
         parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">19.0dip</item>
         <item name="android:fontFamily">@font/skt</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/skarti_purple_dark</item>
         <item name="android:textStyle">bold</item>
         <item name="android:windowBackground">@color/skarti_white</item>
     <item name="android:windowShowWallpaper">true</item>

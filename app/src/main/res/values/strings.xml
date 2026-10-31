@@ -12,7 +12,7 @@
 	<string name="app_description">SKARTI VPN PREMIUM is an VPN client, designed to bypass local blocking and censorship on the network.</string>
 	
 <string name="proxy_on"><font color='#00FF00'>You are Sharing Internet !!</font></string>
-  <string name="proxy_off"><font color='#000000'>Tap Switch Below To Start !!</font></string>
+  <string name="proxy_off"><font color='#5B21B6'>Tap Switch Below To Start !!</font></string>
   
 	<string name="loadiing">SKARTI PRO DESIGN V2</string>
 	<string name="attention">Attention</string>
@@ -199,7 +199,6 @@
 	<string name="category_filter_apps">Filter Apps</string>
 	<string name="title_bypass_mode">Bypass Mode</string>
 	<string name="category_settings_adicionais">Additional configurations</string>
-	<string name="title_mode_night">Night Mode</string>
 	<string name="title_ping_time">Ping (seconds)</string>
 	<string name="category_user_interface">User Interface</string>
 	<string name="title_language">Language</string>

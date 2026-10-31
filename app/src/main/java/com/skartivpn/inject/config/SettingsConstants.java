@@ -8,7 +8,6 @@ public interface SettingsConstants
 		AUTO_CLEAR_LOGS_KEY = "autoClearLogs",
 		HIDE_LOG_KEY = "hideLog",
 		MODO_DEBUG_KEY = "modeDebug",
-		MODO_NOTURNO_KEY = "modeNight",
 		BLOQUEAR_ROOT_KEY = "blockRoot",
 		IDIOMA_KEY = "idioma",
 		TETHERING_SUBNET = "tetherSubnet",
