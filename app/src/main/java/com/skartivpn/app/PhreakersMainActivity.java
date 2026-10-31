@@ -444,13 +444,13 @@ case R.id.speedtest:
 		// Hide-log setting: reset the old true-by-default value once, so
 		// existing installs get their logs back without clearing app data.
 		mConfig.migrateHideLogDefault();
-		if (mConfig.getHideLog()) {
-			logList.setVisibility(View.GONE);
-			if (deleteLogs != null) { deleteLogs.setVisibility(View.GONE); }
-		}
+		updateLogVisibility();
 		logList.setAdapter(mLogAdapter);
 		logList.setLayoutManager(layoutManager);
 		mLogAdapter.scrollToLastPosition();
+		// One startup entry so the Log page always shows at least one line
+		// and the user can tell at a glance that the log pipeline works.
+		SkStatus.logInfo("Log siap. Atur profil di Custom, lalu tekan START.");
 		deleteLogs.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -742,6 +742,18 @@ case R.id.speedtest:
 			intent.putExtra("PROFILE_ID", active.id);
 		}
 		startActivity(intent);
+	}
+	// Re-applies the hide-log setting to the log list. Called from doLayout
+	// and from onResume, so toggling the setting in Pengaturan and coming
+	// back actually shows (or hides) the log without restarting the app.
+	private void updateLogVisibility() {
+		if (logList == null) { return; }
+		if (mConfig.getHideLog()) {
+			logList.setVisibility(View.GONE);
+			if (deleteLogs != null) { deleteLogs.setVisibility(View.GONE); }
+		} else {
+			logList.setVisibility(View.VISIBLE);
+		}
 	}
 	private void refreshCustomStats() {
 		try {
@@ -1358,6 +1370,7 @@ public void onResume() {
     super.onResume();
     SkStatus.addStateListener(this);
     refreshCustomStats();
+    updateLogVisibility();
    // mHandler.post(greetingRunnable); // [NEW] Start greeting updates
 }
 

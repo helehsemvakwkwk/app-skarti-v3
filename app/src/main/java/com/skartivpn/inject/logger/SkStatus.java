@@ -303,12 +303,21 @@ public class SkStatus
         mLastLevel = level;
         mLastIntent = intent;
 
+        // FIX: state transitions used to only reach the START button, never
+        // the log list (the old log line here was commented out). Record
+        // every transition as an INFO log entry so the Log page actually
+        // shows tunnel activity: starting, connecting, authenticating,
+        // connected, reconnecting, stopping, disconnected, etc. This cannot
+        // recurse: newLogItem notifies LogListeners only, not StateListeners.
+        String logText = state;
+        if (msg != null && !msg.isEmpty()) {
+            logText = state + " - " + msg;
+        }
+        newLogItem(new LogItem(LogLevel.INFO, logText));
 
         for (StateListener sl : stateListener) {
             sl.updateState(state, msg, resid, level, intent);
         }
-		
-        //newLogItem(new LogItem((LogLevel.DEBUG), String.format("SocksHttp Novo Status (%s->%s): %s",state,level.toString(),msg)));
     }
 
     

@@ -264,11 +264,10 @@ public class LogsAdapter extends RecyclerView.Adapter<LogsAdapter.logViewHolder>
 			LogItem logMessage = msg.getData().getParcelable("logmessage");
 			if (addLogMessage(logMessage))
 			{
-
-				for (AdapterDataObserver observer : observers)
-				{
-					observer.onChanged();
-				}
+				// FIX: use the standard RecyclerView notification instead of
+				// manually poking a self-kept observer list, so the list is
+				// guaranteed to re-layout even after detach/re-attach.
+				notifyItemInserted(currentLevelEntries.size() - 1);
 
 				if (!mLockAutoScroll)
 					scrollToLastPosition();
@@ -276,28 +275,20 @@ public class LogsAdapter extends RecyclerView.Adapter<LogsAdapter.logViewHolder>
 		}
 		else if (msg.what == MESSAGE_CLEARLOG)
 		{
-			for (AdapterDataObserver observer : observers)
-			{
-				observer.onChanged();
-			}
+			// FIX: reload the buffer BEFORE notifying. The old order
+			// notified first and reloaded after, so the RecyclerView kept
+			// the stale item count until some later trigger.
 			initLogBuffer();
+			notifyDataSetChanged();
 		}
 		else if (msg.what == MESSAGE_NEWTS)
 		{
-			for (AdapterDataObserver observer : observers)
-			{
-				observer.onChanged();
-			}
+			notifyDataSetChanged();
 		}
 		else if (msg.what == MESSAGE_NEWLOGLEVEL)
 		{
 			initCurrentMessages();
-
-			for (AdapterDataObserver observer : observers)
-			{
-				observer.onChanged();
-			}
-
+			notifyDataSetChanged();
 		}
 
 		return true;
@@ -351,9 +342,12 @@ public class LogsAdapter extends RecyclerView.Adapter<LogsAdapter.logViewHolder>
 
 	public void scrollToLastPosition()
 	{
-		// scroll para ultima mensagem
-		mLinearLayoutManager.scrollToPosition(
-			mLinearLayoutManager.getItemCount() - 1);
+		// scroll para ultima mensagem; guard against an empty list so we
+		// never ask the layout manager to scroll to position -1.
+		if (mLinearLayoutManager.getItemCount() > 0) {
+			mLinearLayoutManager.scrollToPosition(
+				mLinearLayoutManager.getItemCount() - 1);
+		}
 	}
 	
 	public void setLogLevel(int level) {
