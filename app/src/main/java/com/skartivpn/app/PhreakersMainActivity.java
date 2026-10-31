@@ -44,12 +44,9 @@ import android.widget.Toast;
 import com.skartivpn.app.ui.ProxySettings;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,7 +59,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.skartivpn.app.activities.BaseActivity;
@@ -73,9 +70,7 @@ import com.skartivpn.app.util.ConfigUpdate;
 import com.skartivpn.app.util.ConfigUtil;
 import com.skartivpn.app.util.GoogleFeedbackUtils;
 import com.skartivpn.app.util.NethPogi;
-import com.skartivpn.app.util.PayloadAdapter;
 import com.skartivpn.app.util.PayloadModel;
-import com.skartivpn.app.util.ServerAdapter;
 import com.skartivpn.app.util.ServerModel;
 import com.skartivpn.app.util.Utils;
 import com.skartivpn.app.util.VPNUtils;
@@ -164,12 +159,10 @@ import android.view.animation.RotateAnimation;
 	private FloatingActionButton deleteLogs;
 	private RecyclerView logList;
     private LogsAdapter mLogAdapter;
-    private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle toggle;
+    private BottomNavigationView bottomNav;
+    private java.util.Timer statsTimer;
     private ConfigUtil config;
     private Button buttonnethie;
-    private AppCompatSpinner serverSpinner;
-    private AppCompatSpinner payloadSpinner;
     private ViewPager vp;
     private TabLayout tabs;
 	
@@ -270,9 +263,12 @@ import android.view.animation.RotateAnimation;
 
         // Periksa apakah reModStatus null sebelum memanggil .equals()
         // Anda juga bisa menambahkan logging di sini untuk membantu debugging jika suatu saat extra ini tidak ada.
-        if (reModStatus == null || 
-            reModStatus.equals(String.valueOf(View.GONE)) || 
-            reModStatus.equals("")) {
+        // External config files (ACTION_VIEW from WhatsApp/Telegram) do not
+        // carry the splash ReMod extra, so they must not trigger the exit check.
+        String launchAction = getIntent() != null ? getIntent().getAction() : null;
+        if (!Intent.ACTION_VIEW.equals(launchAction) && (reModStatus == null ||
+            reModStatus.equals(String.valueOf(View.GONE)) ||
+            reModStatus.equals(""))) {
             android.util.Log.w("PhreakersMainActivity", "Extra 'ReMod' is missing or invalid. Exiting activity.");
 			Utils.exitAll(PhreakersMainActivity.this);
 		}
@@ -283,6 +279,7 @@ import android.view.animation.RotateAnimation;
 		LocalBroadcastManager.getInstance(this)
 		.registerReceiver(mActivityReceiver, filter);
 		doUpdateLayout();
+		handleExternalConfigIntent(getIntent());
  //       doTabs();
 	}
 	
@@ -370,12 +367,7 @@ import android.view.animation.RotateAnimation;
 		updatet.setText(!mConfig.getPrefsPrivate().getString("UpdateTime", "").equals("") ? mConfig.getPrefsPrivate().getString("UpdateTime","") : "----/--/--");
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
 		
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar_main, R.string.open, R.string.cancel);
-        toggle.syncState();
-		
-		getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     	getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon);
         
@@ -413,6 +405,22 @@ case R.id.profile:
                 startActivityForResult(intent, 550);
                break;
 
+					           					           case R.id.payloadSel:
+							openPayloadSelection();
+							break;
+case R.id.speedtest:
+							startActivity(new Intent(PhreakersMainActivity.this, SktSpeedTest.class));
+							break;
+					           case R.id.pogse1:
+							startActivity(new Intent(PhreakersMainActivity.this, ProxySettings.class));
+							break;
+					           case R.id.clearz:
+							clerd();
+							break;
+					           case R.id.Bell:
+							showReleaseNotes();
+							break;
+
 					}
                     return true;
                 }
@@ -428,6 +436,11 @@ case R.id.profile:
         mLogAdapter = new LogsAdapter(layoutManager,this);
 		deleteLogs = (FloatingActionButton)findViewById(R.id.clearLog);
 		logList = (RecyclerView) findViewById(R.id.recyclerDrawerView);
+		// Hide-log setting: previously the toggle was forced off and never read.
+		if (mConfig.getHideLog()) {
+			logList.setVisibility(View.GONE);
+			if (deleteLogs != null) { deleteLogs.setVisibility(View.GONE); }
+		}
 		logList.setAdapter(mLogAdapter);
 		logList.setLayoutManager(layoutManager);
 		mLogAdapter.scrollToLastPosition();
@@ -509,13 +522,14 @@ case R.id.profile:
             startOrStopTunnel(PhreakersMainActivity.this);
         }
         });
-        new Timer().schedule(new TimerTask(){@Override public void run() {new Handler(Looper.getMainLooper()).post(new Runnable() {@Override public void run() {
+        if (statsTimer != null) { statsTimer.cancel(); }
+        statsTimer = new Timer();
+        statsTimer.schedule(new TimerTask(){@Override public void run() {new Handler(Looper.getMainLooper()).post(new Runnable() {@Override public void run() {
         getData();}});}}, 0,1000);
         serverList = new ArrayList<ServerModel>();
-        serverSpinner = (AppCompatSpinner) findViewById(R.id.serverSpinner);
-		payloadSpinner = (AppCompatSpinner) findViewById(R.id.payloadSpinner);
         try {
             JSONArray array = config.getServersArray();
+            if (array == null) { throw new JSONException("Servers config is null"); }
             for (int i = 0; i < array.length(); i++) {
                 JSONObject jsonObject = array.getJSONObject(i);
                 SharedPreferences prefs = mConfig.getPrefsPrivate();
@@ -534,12 +548,14 @@ case R.id.profile:
                 serverList.add(model);
                 edit.apply();
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            VPNUtils.NethToast(this, R.drawable.skarti_wrong, "No Server & Config Detected.");
         }
         payList = new ArrayList<PayloadModel>();
         try {
             JSONArray array = config.getNetworksArray();
+            if (array == null) { throw new JSONException("Networks config is null"); }
             for (int i = 0; i < array.length(); i++) {
                 JSONObject jsonObject = array.getJSONObject(i);
                 SharedPreferences prefs = mConfig.getPrefsPrivate();
@@ -552,44 +568,13 @@ case R.id.profile:
                 payList.add(model);
                 edit.apply();
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            VPNUtils.NethToast(this, R.drawable.skarti_wrong, "No Server & Config Detected.");
         }
-        ServerAdapter Serveradapter = new ServerAdapter(this, this, serverList, mConfig.getPrefsPrivate().getInt("Selected1",0));
-        PayloadAdapter Payadapter = new PayloadAdapter(this, payList, mConfig.getPrefsPrivate().getInt("Selected2",0));
-        if (config.getJSONConfig() != null){
-		serverSpinner.setAdapter(Serveradapter);
-        payloadSpinner.setAdapter(Payadapter);
-		} else {
+        if (config.getJSONConfig() == null){
 			VPNUtils.NethToast(this, R.drawable.skarti_wrong, "No Server & Config Detected.");
 		}
-        serverSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-               
-        
-        
-                @Override
-                public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                   mConfig.getPrefsPrivate().edit().putInt("Selected1", p3).apply();
-				   
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> p1) {
-                    Toast.makeText(getApplicationContext(), "Nothing selected!",0).show();
-                }
-        });
-        payloadSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-                @Override
-                public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                    mConfig.getPrefsPrivate().edit().putInt("Selected2", p3).apply();
-					
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> p1) {
-                    Toast.makeText(getApplicationContext(), "Nothing selected!",0).show();
-                }
-            });
-        serverSpinner.setSelection(mConfig.getPrefsPrivate().getInt("Selected1",0));
-        payloadSpinner.setSelection(mConfig.getPrefsPrivate().getInt("Selected2",0));
 		try {
 			JSONArray jsonArray = config.getServersArray();
 			for (int i = 0; i < jsonArray.length(); i++) {
@@ -616,6 +601,13 @@ case R.id.profile:
 					startActivityForResult(intent, 1001);
 					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 				}
+			});
+		}
+		LinearLayout payloadCardClickable = (LinearLayout) findViewById(R.id.payloadCardClickable);
+		if (payloadCardClickable != null) {
+			payloadCardClickable.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) { openPayloadSelection(); }
 			});
 		}
 		try {
@@ -651,7 +643,7 @@ case R.id.profile:
 							new Handler().postDelayed(new Runnable(){
 								@Override
 								public void run(){
-							deleteLogs.setVisibility(View.VISIBLE);
+							if (!mConfig.getHideLog()) { deleteLogs.setVisibility(View.VISIBLE); }
 							deleteLogs.startAnimation(AnimationUtils.loadAnimation(PhreakersMainActivity.this, R.anim.grow));
 							}
 							}, 100);
@@ -665,147 +657,60 @@ case R.id.profile:
 				
 			
 		});
-        final NavigationView drawerNavigationView = (NavigationView) findViewById(R.id.drawerNavigationView);
-        drawerNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
-
+        bottomNav = (BottomNavigationView) findViewById(R.id.bottomNav);
+        if (bottomNav != null) {
+            bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
-                public boolean onNavigationItemSelected(MenuItem p1) {
-                    switch (p1.getItemId()) {
-                        
-                        case R.id.Bell:
-                            View inflate = LayoutInflater.from(PhreakersMainActivity.this).inflate(R.layout.notification, null);
-                            MaterialAlertDialogBuilder builer = new MaterialAlertDialogBuilder(PhreakersMainActivity.this); 
-                            builer.setView(inflate); 
-                            MaterialTextView title = inflate.findViewById(R.id.notiftext1);
-                            MaterialTextView ms = inflate.findViewById(R.id.confimsg);
-                            MaterialTextView ok = inflate.findViewById(R.id.appButton1);
-                            MaterialTextView cancel = inflate.findViewById(R.id.appButton2);
-                            title.setText("Release Notes!");
-                            ms.setText(config.geNote());
-                            ok.setText("Ok, Close");
-                            cancel.setText(".");
-                            cancel.setVisibility(View.GONE);
-                            final AlertDialog alert = builer.create(); 
-                            alert.setCanceledOnTouchOutside(false);
-		alert.getWindow().getAttributes().windowAnimations = R.style.Neth01;
-                            alert.getWindow().setGravity(Gravity.CENTER); 
-                            ok.setOnClickListener(new View.OnClickListener() { 
-                                    @Override
-                                    public void onClick(View p1){
-                                        alert.dismiss();
-                                    }
-                                });
-
-                            cancel.setOnClickListener(new View.OnClickListener(){
-
-                                    @Override
-                                    public void onClick(View p1) {
-
-                                        alert.dismiss();
-                                    }
-
-
-
-
-                                });
-                            alert.show();
-                        break;
-                        
-                        case R.id.speedtest:
-							Intent speed1 = new Intent(PhreakersMainActivity.this, SktSpeedTest.class);
-							startActivity(speed1);
-							break; 
-							
-					    case R.id.premium:
-							Intent prem2 = new Intent(PhreakersMainActivity.this, SktPremium.class);
-							startActivity(prem2);
-							break; 
-							
-						
-                  /*      case R.id.claimV:
-                        claimz();
-                        break;*/
-                        case R.id.clearz:
-                        clerd();
-                        break;
-                        case R.id.pogse1:
-					Intent hostshare2 = new Intent(PhreakersMainActivity.this, ProxySettings.class);
-					startActivity(hostshare2);
-					break;
-							
-						
-
-                        case R.id.miPhoneConfg:
-                            if (Build.VERSION.SDK_INT >= 30){
-                                    try {
-                                        Intent in = new Intent(Intent.ACTION_MAIN);
-                                        in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        in.setClassName("com.android.phone", "com.android.phone.settings.RadioInfo");
-                                        PhreakersMainActivity.this.startActivity(in);
-                                    } catch (Exception e){
-                                        Toast.makeText(PhreakersMainActivity.this, R.string.error_no_supported, Toast.LENGTH_SHORT)
-                                            .show();   }
-                            } else {
-                                try {
-                                    Intent in = new Intent(Intent.ACTION_MAIN);
-                                    in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    in.setClassName("com.android.settings", "com.android.settings.RadioInfo");
-                                    PhreakersMainActivity.this.startActivity(in);
-                                } catch(Exception e) {
-                                    Toast.makeText(PhreakersMainActivity.this, R.string.error_no_supported, Toast.LENGTH_SHORT)
-                                        .show();   }
+                public boolean onNavigationItemSelected(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.nav_home:
+                            if (vp != null) vp.setCurrentItem(0);
+                            return true;
+                        case R.id.nav_logs:
+                            if (vp != null) vp.setCurrentItem(1);
+                            return true;
+                        case R.id.nav_server:
+                            Intent serverIntent = new Intent(PhreakersMainActivity.this, com.skartivpn.app.activities.ServerSelectionActivity.class);
+                            int selectedServerPos = mConfig.getPrefsPrivate().getInt("Selected1", 0);
+                            if (serverList != null && selectedServerPos < serverList.size()) {
+                                serverIntent.putExtra("SELECTED_SERVER_ID", String.valueOf(selectedServerPos));
                             }
-                            break;
-                        case R.id.miAvaliarPlaystore:
-                            String url = "https://wa.me/+6283845974466";
-                            Intent intent3 = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                            intent3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            PhreakersMainActivity.this.startActivity(Intent.createChooser(intent3, PhreakersMainActivity.this.getText(R.string.open_with)));
-                            break;
-
-                        // Credit By : @SaputraTech, @SkartiVPN.
-// Credit By : @SaputraTech, @SkartiVPN.
-// Credit By : @SaputraTech, @SkartiVPN.
-
-                            /** case R.id.miAbout:
-                             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                             drawerLayout.closeDrawers();
-                             }
-                             Intent aboutIntent = new Intent(mActivity, AboutActivity.class);
-                             mActivity.startActivity(aboutIntent);
-                             break;**/
+                            startActivityForResult(serverIntent, 1001);
+                            return true;
+                        case R.id.nav_premium:
+                            startActivity(new Intent(PhreakersMainActivity.this, SktPremium.class));
+                            return true;
+                        case R.id.nav_settings:
+                            startActivity(new Intent(PhreakersMainActivity.this, ConfigGeralActivity.class));
+                            return true;
                     }
-                    if (drawerLayout.isDrawerOpen(GravityCompat.START)){
-                      drawerLayout.closeDrawers();
-                    }
-					
-                    return true;
-                        }
-        });
-        drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener(){
-                private boolean bolbol = true;
-                @Override
-                public void onDrawerSlide(View p1, float p2) {
-                 if (bolbol){
-                Animation fadeIn = new AlphaAnimation(0, 1);
-                fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
-                fadeIn.setDuration(500);
-                p1.startAnimation(fadeIn);
-                bolbol = false;
-                }     
-				}
-                @Override
-                public void onDrawerOpened(View p1) {
-                }
-                @Override
-                public void onDrawerClosed(View p1) {
-                 bolbol = true;
-                }
-                @Override
-                public void onDrawerStateChanged(int p1) {
+                    return false;
                 }
             });
-	}
+        }
+    }
+    private void showReleaseNotes() {
+        View inflate = LayoutInflater.from(PhreakersMainActivity.this).inflate(R.layout.notification, null);
+        MaterialAlertDialogBuilder builer = new MaterialAlertDialogBuilder(PhreakersMainActivity.this);
+        builer.setView(inflate);
+        MaterialTextView title = inflate.findViewById(R.id.notiftext1);
+        MaterialTextView ms = inflate.findViewById(R.id.confimsg);
+        MaterialTextView ok = inflate.findViewById(R.id.appButton1);
+        MaterialTextView cancel = inflate.findViewById(R.id.appButton2);
+        title.setText("Release Notes!");
+        ms.setText(config.geNote());
+        ok.setText("Ok, Close");
+        cancel.setVisibility(View.GONE);
+        final AlertDialog alert = builer.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.getWindow().getAttributes().windowAnimations = R.style.Neth01;
+        alert.getWindow().setGravity(Gravity.CENTER);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View p1) { alert.dismiss(); }
+        });
+        alert.show();
+    }
     private String render_bandwidth(double bw) {
         String postfix;
         float div;
@@ -844,7 +749,7 @@ case R.id.profile:
         NethPogi.damn(mDownload, mUpload);
         //down = mDownload;
         //up = mUpload;
-        SharedPreferences myData = mConfig.getPrefsPrivate();
+        SharedPreferences myData = getSharedPreferences("SkartiStats", MODE_PRIVATE);
         Calendar ca = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
         tDate = sdf.format(ca.getTime());
@@ -857,7 +762,9 @@ case R.id.profile:
             editor.putLong("DOWN_DATA", mDownload + saved_Down);
             editor.apply();
         } else {
-            editor.clear();
+            // Only reset the daily counters, never clear other preferences.
+            editor.putLong("UP_DATA", 0);
+            editor.putLong("DOWN_DATA", 0);
             editor.putString("today_date", tDate);
             editor.apply();
         }
@@ -892,6 +799,15 @@ case R.id.profile:
 			e.printStackTrace();
 		}
 	}
+	private void openPayloadSelection() {
+		Intent payloadIntent = new Intent(PhreakersMainActivity.this, com.skartivpn.app.activities.PayloadSelectionActivity.class);
+		int selectedPayloadPos = mConfig.getPrefsPrivate().getInt("Selected2", 0);
+		if (payList != null && selectedPayloadPos < payList.size()) {
+			payloadIntent.putExtra("SELECTED_PAYLOAD_ID", String.valueOf(selectedPayloadPos));
+		}
+		startActivityForResult(payloadIntent, 1002);
+	}
+
 	public void doRestart() {
         finish();
         startActivity(new Intent(this,LauncherActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION));
@@ -904,9 +820,12 @@ case R.id.profile:
 		else {
 			// oculta teclado se vísivel, tá com bug, tela verde
 			//Utils.hideKeyboard(activity);
-            if (mConfig.getPrivString(Settings.SERVIDOR_KEY).isEmpty() || mConfig.getPrivString(Settings.SERVIDOR_PORTA_KEY).isEmpty()) {
+            int savedServerPos = mConfig.getPrefsPrivate().getInt("Selected1", 0);
+            if (serverList == null || serverList.isEmpty() || savedServerPos < 0 || savedServerPos >= serverList.size()) {
                 SkStatus.updateStateString("USER_VPN_PASSWORD_CANCELLED", "", R.string.state_user_vpn_password_cancelled,
                                            ConnectionStatus.LEVEL_NOTCONNECTED);
+                Toast.makeText(this, R.string.error_empty_settings, Toast.LENGTH_SHORT).show();
+                return;
 			}
 
 			/*if (config.getPrefsPrivate()
@@ -918,7 +837,8 @@ case R.id.profile:
 					return;
 				}
 			}*/
-            _pos_(serverSpinner.getSelectedItemPosition(),payloadSpinner.getSelectedItemPosition());
+            if (mConfig.getAutoClearLog() && mLogAdapter != null) { mLogAdapter.clearLog(); }
+            _pos_(mConfig.getPrefsPrivate().getInt("Selected1", 0), mConfig.getPrefsPrivate().getInt("Selected2", 0));
 			Intent intent = new Intent(activity, LaunchVpn.class);
             intent.setAction(Intent.ACTION_MAIN);
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -1467,18 +1387,13 @@ public void jointele (View view){
             if (resultCode == RESULT_OK) {
                 try {
                     Uri uri = data.getData();
+                    if (uri == null) { throw new IOException("No file selected"); }
                     String intentData = importer(uri);
-                    //String cipter = AESCrypt.decrypt(ConfigUtil.PASSWORD, intentData);
-                    File file = new File(getFilesDir(), "Config.json");
-                    OutputStream out = new FileOutputStream(file);
-                    out.write(intentData.getBytes());
-                    out.flush();
-                    out.close();
-					mConfig.getPrefsPrivate().edit()
-						.putString("UpdateTime", VPNUtils.getTime01(PhreakersMainActivity.this)).apply();
+                    tryImportConfig(intentData);
                     doRestart();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
+                    VPNUtils.NethToast(this, R.drawable.skarti_wrong, "Import gagal: config tidak valid, file lama dipertahankan.");
                 }
             }
         }
@@ -1491,11 +1406,31 @@ public void jointele (View view){
                 if (selectedServerId != null) {
                     try {
                         int serverPosition = Integer.parseInt(selectedServerId);
-                        // Update spinner selection
-                        if (serverSpinner != null && serverPosition < serverList.size()) {
-                            serverSpinner.setSelection(serverPosition);
+                        // Update spinner selection (position in the REAL config list, not a sample id)
+                        if (serverPosition >= 0 && serverPosition < serverList.size()) {
                             mConfig.getPrefsPrivate().edit().putInt("Selected1", serverPosition).apply();
                             VPNUtils.NethToast(this, R.drawable.check, "Server changed to: " + selectedServerName);
+                        } else {
+                            VPNUtils.NethToast(this, R.drawable.skarti_wrong, "Server tidak ditemukan di config.");
+                        }
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        else if (requestCode == 1002) {
+            if (resultCode == RESULT_OK && data != null) {
+                String selectedPayloadId = data.getStringExtra("SELECTED_PAYLOAD_ID");
+                String selectedPayloadName = data.getStringExtra("SELECTED_PAYLOAD_NAME");
+                if (selectedPayloadId != null) {
+                    try {
+                        int payloadPosition = Integer.parseInt(selectedPayloadId);
+                        if (payloadPosition >= 0 && payloadPosition < payList.size()) {
+                            mConfig.getPrefsPrivate().edit().putInt("Selected2", payloadPosition).apply();
+                            VPNUtils.NethToast(this, R.drawable.check, "Payload changed to: " + selectedPayloadName);
+                        } else {
+                            VPNUtils.NethToast(this, R.drawable.skarti_wrong, "Payload tidak ditemukan di config.");
                         }
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
@@ -1507,6 +1442,84 @@ public void jointele (View view){
     
     
 
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handleExternalConfigIntent(intent);
+    }
+
+    // Called when the app is opened by tapping a .skarti/.json file in
+    // WhatsApp, Telegram, Files, etc. Shows a confirmation first and never
+    // overwrites the current config without validation + backup.
+    private void handleExternalConfigIntent(Intent intent) {
+        if (intent == null || !Intent.ACTION_VIEW.equals(intent.getAction())) { return; }
+        Uri uri = intent.getData();
+        if (uri == null) { return; }
+        String raw = importer(uri);
+        if (raw == null || raw.trim().isEmpty()) {
+            VPNUtils.NethToast(this, R.drawable.skarti_wrong, "Import gagal: file kosong atau tidak bisa dibaca.");
+            return;
+        }
+        String fileName = uri.getLastPathSegment();
+        try {
+            android.database.Cursor c = getContentResolver().query(uri, new String[]{android.provider.OpenableColumns.DISPLAY_NAME}, null, null, null);
+            if (c != null) {
+                try { if (c.moveToFirst()) { fileName = c.getString(0); } } finally { c.close(); }
+            }
+        } catch (Exception ignored) {}
+        final String content = raw;
+        final String name = fileName != null ? fileName : "config";
+        new AlertDialog.Builder(this)
+            .setTitle("Import Config?")
+            .setMessage("File " + name + " akan menggantikan config saat ini. Config lama dibackup ke Config.json.bak. Lanjutkan?")
+            .setPositiveButton("Import", new android.content.DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(android.content.DialogInterface d, int which) {
+                    try {
+                        tryImportConfig(content);
+                        VPNUtils.NethToast(PhreakersMainActivity.this, R.drawable.check, "Config berhasil diimport, aplikasi akan restart.");
+                        doRestart();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        VPNUtils.NethToast(PhreakersMainActivity.this, R.drawable.skarti_wrong, "Import gagal: config tidak valid, file lama dipertahankan.");
+                    }
+                }
+            })
+            .setNegativeButton("Batal", null)
+            .show();
+    }
+
+    // Validates + installs a config string. Accepts the encrypted .skarti
+    // format (stored as-is) and plain JSON (encrypted before storing, since
+    // ConfigUtil always decrypts Config.json on read). Throws on invalid.
+    private void tryImportConfig(String raw) throws Exception {
+        String toStore;
+        String trimmed = raw.trim();
+        try {
+            String decrypted = AESCrypt.decrypt(ConfigUtil.PASSWORD, trimmed);
+            org.json.JSONObject j = new org.json.JSONObject(decrypted);
+            if (!j.has("Servers") || !j.has("Networks")) { throw new IOException("Invalid config: Servers/Networks missing"); }
+            toStore = trimmed;
+        } catch (Exception e) {
+            // Not valid encrypted JSON: try plain JSON, then encrypt it for
+            // storage (ConfigUtil decrypts Config.json on every read).
+            org.json.JSONObject j = new org.json.JSONObject(trimmed);
+            if (!j.has("Servers") || !j.has("Networks")) { throw new IOException("Invalid config: Servers/Networks missing"); }
+            toStore = AESCrypt.encrypt(ConfigUtil.PASSWORD, trimmed);
+        }
+        File file = new File(getFilesDir(), "Config.json");
+        File backup = new File(getFilesDir(), "Config.json.bak");
+        if (file.exists()) {
+            java.nio.file.Files.copy(file.toPath(), backup.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        }
+        OutputStream out = new FileOutputStream(file);
+        out.write(toStore.getBytes());
+        out.flush();
+        out.close();
+        mConfig.getPrefsPrivate().edit().putString("UpdateTime", VPNUtils.getTime01(PhreakersMainActivity.this)).apply();
+    }
 
     private String importer(Uri uri)
     {
@@ -1545,6 +1558,8 @@ protected void onPause() {
 	@Override
 	protected void onDestroy()
 	{
+		if (statsTimer != null) { statsTimer.cancel(); statsTimer = null; }
+		if (mHandler != null) { mHandler.removeCallbacksAndMessages(null); }
 		super.onDestroy();
 		//mDrawer.onDestroy();
 		LocalBroadcastManager.getInstance(this)

@@ -64,14 +64,12 @@
     		<androidx.preference.ListPreference
         	android:key="modeNight"
 			android:defaultValue="off"
-			android:summary="Fitur Ini Tidak Tersedia"
+			android:summary="Aktifkan tema gelap untuk aplikasi"
 			android:icon="@drawable/darkmode"
 	        android:layout="@layout/card_bot"
-	        android:visibility="gone"
         	android:entries="@array/pref_modoNoturno_option_labels"
         	android:entryValues="@array/pref_modoNoturno_option_values"
         	android:title="@string/title_mode_night"
-            android:enabled="false"
 		/>
     
     		<androidx.preference.CheckBoxPreference
@@ -122,7 +120,6 @@
 	    android:icon="@drawable/ic_advance_settings"
 	    android:layout="@layout/card_bot"
     	android:key="screenAdvancedSettings"
-        android:visible="false"
     	android:summary="Optional"
 		app:fragment="com.skartivpn.app.preference.SettingsAdvancedPreference"
         android:title="@string/category_advanced_settings"

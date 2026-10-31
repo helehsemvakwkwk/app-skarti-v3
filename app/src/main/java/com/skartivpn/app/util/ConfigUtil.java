@@ -73,7 +73,7 @@ public class ConfigUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return new JSONArray();
     }
 
     public JSONArray getNetworksArray() {
@@ -85,7 +85,7 @@ public class ConfigUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return new JSONArray();
     }
 
     public boolean versionCompare(String NewVersion, String OldVersion) {

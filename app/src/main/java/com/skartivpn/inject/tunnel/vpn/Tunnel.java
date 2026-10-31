@@ -202,14 +202,14 @@ public class Tunnel
 			mRoutes.addIP(new CIDRIP("10.0.0.0", 8), false);
 			mRoutes.addIP(new CIDRIP(mPrivateAddress.mSubnet, mPrivateAddress.mPrefixLength), false);
 
-			// ainda pra testar, subnet routing pesquisar "allow lan"
-                // USB tethering 192.168.42.x
-                // Wi-Fi tethering 192.168.43.x
-                mRoutes.addIP(new CIDRIP("192.168.42.0", 23), false);
-                // Bluetooth tethering 192.168.44.x
-                mRoutes.addIP(new CIDRIP("192.168.44.0", 24), false);
-                // Wi-Fi direct 192.168.49.x
-                mRoutes.addIP(new CIDRIP("192.168.49.0", 24), false);
+			// Tethering subnets are excluded only when the tethering-subnet
+                // setting is OFF. When it is ON, these subnets stay inside
+                // the 0.0.0.0/0 tunnel route so hotspot clients use the VPN.
+                if (!enableTethering) {
+                    mRoutes.addIP(new CIDRIP("192.168.42.0", 23), false);
+                    mRoutes.addIP(new CIDRIP("192.168.44.0", 24), false);
+                    mRoutes.addIP(new CIDRIP("192.168.49.0", 24), false);
+                }
 
 			// Add Dns
 			for (String dns : dnsResolver) {

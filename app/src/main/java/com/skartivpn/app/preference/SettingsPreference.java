@@ -78,7 +78,6 @@ public class SettingsPreference extends PreferenceFragmentCompat
 		super.onResume();
 		
 		SkStatus.addStateListener(this);
-        findPreference(HIDE_LOG_KEY).setEnabled(false);
 	}
 
 	@Override
@@ -87,7 +86,6 @@ public class SettingsPreference extends PreferenceFragmentCompat
 		super.onPause();
 		
 		SkStatus.removeStateListener(this);
-        findPreference(HIDE_LOG_KEY).setEnabled(false);
 	}
 	
 	
@@ -110,7 +108,7 @@ public class SettingsPreference extends PreferenceFragmentCompat
 			findPreference(IDIOMA_KEY);
 		idioma.setOnPreferenceChangeListener(this);
 		SettingsAdvancedPreference.setListPreferenceSummary(idioma, idioma.getValue());
-		findPreference(HIDE_LOG_KEY).setEnabled(false);
+		// hideLog is a live UI setting and is no longer forced off here
         
 		// update view
 		setRunningTunnel(SkStatus.isTunnelActive());
@@ -154,8 +152,7 @@ public class SettingsPreference extends PreferenceFragmentCompat
 			for (String key : settings_disabled_keys){
 				getPreferenceManager().findPreference(key)
 					.setEnabled(false);
-                findPreference(HIDE_LOG_KEY).setEnabled(false);
-			}
+        			}
 		}
 		else {
 			onChangeUseVpn(true);
@@ -187,6 +184,15 @@ public class SettingsPreference extends PreferenceFragmentCompat
 					findPreference(DNSRESOLVER_KEY);
 				dnsResolverPreference.setEnabled(isDnsForward);
 			break;
+			case MODO_NOTURNO_KEY:
+				String night = (String) newValue;
+				if ("on".equals(night)) {
+					AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+				} else {
+					AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+				}
+				if (getActivity() != null) { getActivity().recreate(); }
+				break;
 			case IDIOMA_KEY:
             return false;
 		}
@@ -200,8 +206,7 @@ public class SettingsPreference extends PreferenceFragmentCompat
 			@Override
 			public void run() {
 				setRunningTunnel(SkStatus.isTunnelActive());
-                findPreference(HIDE_LOG_KEY).setEnabled(false);
-			}
+        			}
 		});
 	}
 	

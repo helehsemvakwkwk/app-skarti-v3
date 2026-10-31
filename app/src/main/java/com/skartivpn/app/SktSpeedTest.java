@@ -8,6 +8,7 @@ import com.skarti.premium.v2.R;
 import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -54,9 +55,13 @@ public class SktSpeedTest extends AppCompatActivity {
         mWebView = findViewById(R.id.activity_main_webview);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setAllowFileAccessFromFileURLs(false);
+        webSettings.setAllowUniversalAccessFromFileURLs(false);
+        webSettings.setSafeBrowsingEnabled(true);
         mWebView.setWebViewClient(new HelloWebViewClient());
 
         mWebView.setDownloadListener((url, userAgent, contentDisposition, mimetype, contentLength) -> {
+            if (url == null || !url.startsWith("https://")) { Toast.makeText(getApplicationContext(), "Download diblokir: hanya HTTPS yang diizinkan", Toast.LENGTH_SHORT).show(); return; }
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
             request.setMimeType(mimetype);
             request.addRequestHeader("cookie", CookieManager.getInstance().getCookie(url));
@@ -109,7 +114,18 @@ public class SktSpeedTest extends AppCompatActivity {
     private static class HelloWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            view.loadUrl(request.getUrl().toString());
+            android.net.Uri uri = request.getUrl();
+            String scheme = uri.getScheme();
+            String allowedHost = "speedcheck.biznetnetworks.com";
+            if (("https".equals(scheme) && allowedHost.equals(uri.getHost()))
+                    || "file".equals(scheme)) {
+                view.loadUrl(uri.toString());
+                return true;
+            }
+            if ("https".equals(scheme) || "http".equals(scheme)) {
+                Intent external = new Intent(Intent.ACTION_VIEW, uri);
+                view.getContext().startActivity(external);
+            }
             return true;
         }
     }

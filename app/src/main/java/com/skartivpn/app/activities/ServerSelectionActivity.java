@@ -27,6 +27,7 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import com.skartivpn.app.adapter.ServerSelectionAdapter;
 import com.skartivpn.app.model.ServerItem;
+import com.skartivpn.app.util.ConfigUtil;
 import com.skarti.premium.v2.R;
 
 import java.util.ArrayList;
@@ -184,33 +185,45 @@ public class ServerSelectionActivity extends BaseActivity implements ServerSelec
     }
 
     private void loadServers() {
-        // Show loading indicator
         showLoading(true);
-        
-        // Simulate loading delay (remove in production or load from actual data source)
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            // TODO: Load servers from your data source (SharedPreferences, Database, or API)
-            // For now, adding sample data
-            allServers.clear();
-            
-            // Sample servers - replace with your actual data loading logic
-            allServers.add(new ServerItem("1", "Singapore - SG1", "Singapore", "Asia", "sg", 25, 35, false, true));
-            allServers.add(new ServerItem("2", "Singapore - SG2", "Singapore", "Asia", "sg", 45, 65, false, true));
-            allServers.add(new ServerItem("3", "Japan - JP1", "Tokyo", "Asia", "jp", 60, 45, true, true));
-            allServers.add(new ServerItem("4", "USA - US1", "New York", "Americas", "us", 120, 78, false, true));
-            allServers.add(new ServerItem("5", "Germany - DE1", "Frankfurt", "Europe", "de", 80, 50, true, true));
-            allServers.add(new ServerItem("6", "United Kingdom - UK1", "London", "Europe", "gb", 75, 60, false, true));
-            allServers.add(new ServerItem("7", "Indonesia - ID1", "Jakarta", "Asia", "id", 15, 25, false, true));
-            allServers.add(new ServerItem("8", "Thailand - TH1", "Bangkok", "Asia", "th", 35, 40, false, true));
-            allServers.add(new ServerItem("9", "Australia - AU1", "Sydney", "Others", "au", 95, 55, true, true));
-            allServers.add(new ServerItem("10", "Canada - CA1", "Toronto", "Americas", "ca", 110, 85, false, false));
-            
-            // Hide loading and show content
-            showLoading(false);
-            filterServers("");
-        }, 800); // 800ms loading simulation
+        allServers.clear();
+        try {
+            ConfigUtil config = new ConfigUtil(this);
+            org.json.JSONArray array = config.getServersArray();
+            if (array != null) {
+                for (int i = 0; i < array.length(); i++) {
+                    org.json.JSONObject o = array.getJSONObject(i);
+                    String name = o.optString("Name", "Server " + (i + 1));
+                    String host = o.optString("ServerIP", "");
+                    String flag = o.optString("FLAG", "").toLowerCase();
+                    String info = o.optString("sInfo", host);
+                    // id is the REAL position in the config list, so the main
+                    // screen can set its spinner to exactly this server.
+                    allServers.add(new ServerItem(String.valueOf(i), name, info, regionForFlag(flag), flag, 0, 0, false, true));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        showLoading(false);
+        filterServers("");
     }
-    
+
+    private String regionForFlag(String flag) {
+        switch (flag) {
+            case "sg": case "id": case "th": case "my": case "vn": case "ph":
+            case "jp": case "kr": case "cn": case "in": case "hk": case "tw": case "au": case "nz":
+                return "Asia";
+            case "de": case "gb": case "fr": case "nl": case "it": case "es":
+            case "pl": case "se": case "no": case "dk": case "fi": case "ch": case "at": case "be": case "ie": case "pt": case "ru":
+                return "Europe";
+            case "us": case "ca": case "mx": case "br": case "ar": case "cl":
+                return "Americas";
+            default:
+                return "Others";
+        }
+    }
+
     private void showLoading(boolean show) {
         if (show) {
             loadingIndicator.setVisibility(View.VISIBLE);

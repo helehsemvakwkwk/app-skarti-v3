@@ -9,8 +9,7 @@
 	        android:layout="@layout/card_top_widget"
 			android:key="modeDebug"
 			android:summary="Unavailable"
-			android:title="Debug mode"
-            android:enabled="false"/>
+			android:title="Debug mode"/>
 		
 		<androidx.preference.ListPreference
 		    android:icon="@drawable/ic_advance_settings"
@@ -53,8 +52,8 @@
 		    android:icon="@drawable/skarti_delete"
 	        android:layout="@layout/card_mid_widget"
 			android:key="filterBypassMode"
-			android:summary="Filter Bypass Mode"
-			android:title="App"
+			android:summary="Aktif: aplikasi di daftar dilewati VPN. Nonaktif: hanya aplikasi di daftar yang lewat VPN."
+			android:title="Mode Bypass"
 		/>
 	
 		<androidx.preference.EditTextPreference
@@ -62,8 +61,8 @@
 	        android:layout="@layout/card_bot"
             android:key="filterAppsList"
             android:title="Apps List"
-            android:dialogMessage=""
-			android:singleLine="true"
+            android:dialogMessage="Satu paket aplikasi per baris, atau pisahkan dengan koma"
+			android:singleLine="false"
 		/>
 		
 

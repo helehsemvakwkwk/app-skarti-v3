@@ -1,6 +1,7 @@
 package com.skartivpn.app.util;
 
 import android.net.TrafficStats;
+import android.os.Process;
 import android.util.Log;
 
 import java.text.DecimalFormat;
@@ -27,18 +28,20 @@ public class NethPogi {
         long newTotalDownload, incDownload, newTotalUpload, incUpload;
 
 
-        //totalDownload and totalUpload set to zero if new session starts
+        // Use this app's UID traffic (the tunnel runs in this app), not
+        // device-wide traffic. Fall back to total traffic if UID stats
+        // are unsupported (TrafficStats.UNSUPPORTED == -1).
+        long uidRx = TrafficStats.getUidRxBytes(Process.myUid());
+        long uidTx = TrafficStats.getUidTxBytes(Process.myUid());
+        if (uidRx == TrafficStats.UNSUPPORTED) { uidRx = TrafficStats.getTotalRxBytes(); }
+        if (uidTx == TrafficStats.UNSUPPORTED) { uidTx = TrafficStats.getTotalTxBytes(); }
         if (totalDownload == 0)
-            totalDownload = TrafficStats.getTotalRxBytes();
-
+            totalDownload = uidRx;
         if (totalUpload == 0)
-            totalUpload = TrafficStats.getTotalTxBytes();
-
-        //calculate downloaded or uploaded data in every second
-        newTotalDownload = TrafficStats.getTotalRxBytes();
+            totalUpload = uidTx;
+        newTotalDownload = uidRx;
         incDownload = newTotalDownload - totalDownload;
-
-        newTotalUpload = TrafficStats.getTotalTxBytes();
+        newTotalUpload = uidTx;
         incUpload = newTotalUpload - totalUpload;
 
 
